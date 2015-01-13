@@ -21,6 +21,7 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
     var user : SMUser;
     var publicBoard : SMPublicBoard;
     var privateSessions : NSMutableDictionary;
+    
     var delegate : SMManagerDelegate?;
     
     var publicBrowser : MCNearbyServiceBrowser;
@@ -30,6 +31,7 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
     var privateAdvertiser : MCNearbyServiceAdvertiser;
     
     override init(){
+        
         publicBoard = SMPublicBoard();
         privateSessions = NSMutableDictionary();
         
@@ -40,6 +42,13 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
         
         publicAdvertiser = MCNearbyServiceAdvertiser(peer: user.peerId, discoveryInfo: nil, serviceType: publicServiceType);
         privateAdvertiser = MCNearbyServiceAdvertiser(peer: user.peerId, discoveryInfo: nil, serviceType: privateServiceType);
+        
+        super.init();
+        
+        publicBrowser.delegate = self;
+        privateBrowser.delegate = self;
+        publicAdvertiser.delegate = self;
+        privateAdvertiser.delegate = self;
         
         publicBrowser.startBrowsingForPeers();
         publicAdvertiser.startAdvertisingPeer();
