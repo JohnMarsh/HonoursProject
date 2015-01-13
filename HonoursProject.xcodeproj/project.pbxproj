@@ -14,6 +14,10 @@
 		41DDE3ED1A1E7FD3009CF828 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41DDE3EC1A1E7FD3009CF828 /* Images.xcassets */; };
 		41DDE3F01A1E7FD4009CF828 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41DDE3EE1A1E7FD4009CF828 /* LaunchScreen.xib */; };
 		41DDE3FC1A1E7FD4009CF828 /* HonoursProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DDE3FB1A1E7FD4009CF828 /* HonoursProjectTests.swift */; };
+		41EC87CC1A648B8700B4BE68 /* SMUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EC87CB1A648B8700B4BE68 /* SMUser.swift */; };
+		41EC87CE1A648B9E00B4BE68 /* SMManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EC87CD1A648B9E00B4BE68 /* SMManager.swift */; };
+		41EC87D01A648BAD00B4BE68 /* SMPublicBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EC87CF1A648BAD00B4BE68 /* SMPublicBoard.swift */; };
+		41EC87D21A648BBE00B4BE68 /* SMPrivateSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EC87D11A648BBE00B4BE68 /* SMPrivateSession.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +42,10 @@
 		41DDE3F51A1E7FD4009CF828 /* HonoursProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HonoursProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		41DDE3FA1A1E7FD4009CF828 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41DDE3FB1A1E7FD4009CF828 /* HonoursProjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HonoursProjectTests.swift; sourceTree = "<group>"; };
+		41EC87CB1A648B8700B4BE68 /* SMUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMUser.swift; sourceTree = "<group>"; };
+		41EC87CD1A648B9E00B4BE68 /* SMManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMManager.swift; sourceTree = "<group>"; };
+		41EC87CF1A648BAD00B4BE68 /* SMPublicBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMPublicBoard.swift; sourceTree = "<group>"; };
+		41EC87D11A648BBE00B4BE68 /* SMPrivateSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMPrivateSession.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +69,10 @@
 		4195ABBF1A3F8DD9001807E9 /* SocialMeshFramework */ = {
 			isa = PBXGroup;
 			children = (
+				41EC87CB1A648B8700B4BE68 /* SMUser.swift */,
+				41EC87CD1A648B9E00B4BE68 /* SMManager.swift */,
+				41EC87CF1A648BAD00B4BE68 /* SMPublicBoard.swift */,
+				41EC87D11A648BBE00B4BE68 /* SMPrivateSession.swift */,
 			);
 			name = SocialMeshFramework;
 			sourceTree = "<group>";
@@ -224,8 +236,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				41DDE3E41A1E7FD3009CF828 /* AppDelegate.swift in Sources */,
+				41EC87D01A648BAD00B4BE68 /* SMPublicBoard.swift in Sources */,
+				41EC87D21A648BBE00B4BE68 /* SMPrivateSession.swift in Sources */,
 				4195ABC31A3F912B001807E9 /* PeerViewController.swift in Sources */,
+				41EC87CC1A648B8700B4BE68 /* SMUser.swift in Sources */,
 				41DDE3E61A1E7FD3009CF828 /* NoticeBoardViewController.swift in Sources */,
+				41EC87CE1A648B9E00B4BE68 /* SMManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
