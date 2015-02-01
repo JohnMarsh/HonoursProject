@@ -16,6 +16,7 @@ class SMMessage: NSObject {
     
     var messageType : SMMessageType!
     var sender : String!
+    var content : NSMutableDictionary!
     
     
     convenience init(fromJSONData data: NSData!){
@@ -40,6 +41,7 @@ class SMMessage: NSObject {
         var msg : NSMutableDictionary = NSMutableDictionary()
         msg.setObject(self.messageType.rawValue, forKey: "messageType")
         msg.setObject(self.sender, forKey: "sender")
+        msg.setObject(self.content, forKey: "content")
         let data : NSData = NSJSONSerialization.dataWithJSONObject(msg, options: NSJSONWritingOptions.allZeros, error: &error)!
         return data
     }

@@ -26,10 +26,13 @@ class SMPublicBoard: NSObject, MCSessionDelegate {
     func session(session: MCSession!, peer peerID: MCPeerID!, didChangeState state: MCSessionState){
         switch (state) {
         case MCSessionState.Connecting:
+            println("\(peerID) is connecting to public board.")
             break
         case MCSessionState.Connected:
+             println("\(peerID) has connected to public board.")
             break
         case MCSessionState.NotConnected:
+             println("\(peerID) is not connected to public board.")
             break
         default:
             break

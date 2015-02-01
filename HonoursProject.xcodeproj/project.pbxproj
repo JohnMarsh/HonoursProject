@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41180F591A7DA68500DCD16D /* SMPeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41180F581A7DA68500DCD16D /* SMPeer.swift */; };
 		417EF4D51A78858500689B1E /* SMMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417EF4D41A78858500689B1E /* SMMessage.swift */; };
 		4195ABC31A3F912B001807E9 /* PeerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4195ABC21A3F912B001807E9 /* PeerViewController.swift */; };
 		41DDE3E41A1E7FD3009CF828 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DDE3E31A1E7FD3009CF828 /* AppDelegate.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		41180F581A7DA68500DCD16D /* SMPeer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMPeer.swift; sourceTree = "<group>"; };
 		417EF4D41A78858500689B1E /* SMMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMMessage.swift; sourceTree = "<group>"; };
 		4195ABC21A3F912B001807E9 /* PeerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeerViewController.swift; sourceTree = "<group>"; };
 		41DDE3DE1A1E7FD3009CF828 /* HonoursProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HonoursProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				41EC87CB1A648B8700B4BE68 /* SMUser.swift */,
+				41180F581A7DA68500DCD16D /* SMPeer.swift */,
 				417EF4D41A78858500689B1E /* SMMessage.swift */,
 				41EC87CD1A648B9E00B4BE68 /* SMManager.swift */,
 				41EC87CF1A648BAD00B4BE68 /* SMPublicBoard.swift */,
@@ -241,6 +244,7 @@
 				41DDE3E41A1E7FD3009CF828 /* AppDelegate.swift in Sources */,
 				41EC87D01A648BAD00B4BE68 /* SMPublicBoard.swift in Sources */,
 				41EC87D21A648BBE00B4BE68 /* SMPrivateSession.swift in Sources */,
+				41180F591A7DA68500DCD16D /* SMPeer.swift in Sources */,
 				4195ABC31A3F912B001807E9 /* PeerViewController.swift in Sources */,
 				41EC87CC1A648B8700B4BE68 /* SMUser.swift in Sources */,
 				41DDE3E61A1E7FD3009CF828 /* NoticeBoardViewController.swift in Sources */,

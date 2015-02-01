@@ -28,11 +28,13 @@ class SMPrivateSession: NSObject, MCSessionDelegate {
     func session(session: MCSession!, peer peerID: MCPeerID!, didChangeState state: MCSessionState){
         switch (state) {
         case MCSessionState.Connecting:
+            println("\(peerID) is connecting to private session.")
             break
         case MCSessionState.Connected:
+            println("\(peerID) has connected to private session.")
             break
         case MCSessionState.NotConnected:
-            break
+            println("\(peerID) is not connected to private session.")
         default:
             break
         }
