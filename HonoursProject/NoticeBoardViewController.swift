@@ -7,17 +7,25 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
-class NoticeBoardViewController: UIViewController {
+class NoticeBoardViewController: UIViewController, SMManagerDelegate {
+    
+    var manager : SMManager!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        manager = SMManager(delegate: self)
+       
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func didReceivePrivateInvitationFromPeer(user : SMPeer!, invitationHandler: ((Bool) -> Void)!){
+        
     }
 
 
