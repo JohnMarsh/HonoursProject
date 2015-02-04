@@ -6,7 +6,8 @@
 //  Copyright (c) 2015 John Marsh. All rights reserved.
 //
 
-import UIKit
+import Foundation
+import MultipeerConnectivity
 
 enum SMMessageType : String {
     case Text = "Text"

@@ -16,7 +16,7 @@ class NoticeBoardViewController: UIViewController, SMManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         manager = SMManager(delegate: self)
-       
+        manager.start()
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,6 +25,19 @@ class NoticeBoardViewController: UIViewController, SMManagerDelegate {
     }
     
     func didReceivePrivateInvitationFromPeer(user : SMPeer!, invitationHandler: ((Bool) -> Void)!){
+        
+    }
+    
+    func startedAdvertisingSelf(){
+        
+    }
+    func stoppedAdvertisingSelf(){
+        
+    }
+    func startedBroswingForPeers(){
+        
+    }
+    func stoppedBrowsingForPeers(){
         
     }
 

@@ -6,26 +6,30 @@
 //  Copyright (c) 2015 John Marsh. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import MultipeerConnectivity
 
 protocol SMManagerDelegate{
     func didReceivePrivateInvitationFromPeer(user : SMPeer!, invitationHandler: ((Bool) -> Void)!)
+    func startedAdvertisingSelf()
+    func stoppedAdvertisingSelf()
+    func startedBroswingForPeers()
+    func stoppedBrowsingForPeers()
 }
 
 class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvertiserDelegate {
     
     let publicServiceType = "sm-public"
     let privateServiceType = "sm-private"
-    var publicBoard : SMPublicBoard!
-    var privateSessions : NSMutableDictionary!
+    var publicBoard : SMPublicBoard
+    var privateSessions : NSMutableDictionary
     var delegate : SMManagerDelegate?
-    var publicBrowser : MCNearbyServiceBrowser!
-    var privateBrowser : MCNearbyServiceBrowser!
-    var publicAdvertiser : MCNearbyServiceAdvertiser!
-    var privateAdvertiser : MCNearbyServiceAdvertiser!
-    var peerList : NSMutableDictionary!
-    var timer : NSTimer!
+    var publicBrowser : MCNearbyServiceBrowser
+    var privateBrowser : MCNearbyServiceBrowser
+    var publicAdvertiser : MCNearbyServiceAdvertiser
+    var privateAdvertiser : MCNearbyServiceAdvertiser
+    var peerList : NSMutableDictionary
+    var timer : NSTimer?
     
     override init(){
         self.publicBoard = SMPublicBoard()
@@ -34,23 +38,17 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
         self.publicBrowser = MCNearbyServiceBrowser(peer: SMUser.sharedInstance().peerId, serviceType: publicServiceType)
         self.privateBrowser = MCNearbyServiceBrowser(peer: SMUser.sharedInstance().peerId, serviceType: privateServiceType)
         
-        self.publicAdvertiser = MCNearbyServiceAdvertiser(peer: SMUser.sharedInstance().peerId, discoveryInfo: nil, serviceType: publicServiceType)
-        self.privateAdvertiser = MCNearbyServiceAdvertiser(peer: SMUser.sharedInstance().peerId, discoveryInfo: nil, serviceType: privateServiceType)
+        self.publicAdvertiser = MCNearbyServiceAdvertiser(peer: SMUser.sharedInstance().peerId, discoveryInfo: SMUser.sharedInstance().discoveryInfo, serviceType: publicServiceType)
+        self.privateAdvertiser = MCNearbyServiceAdvertiser(peer: SMUser.sharedInstance().peerId, discoveryInfo: SMUser.sharedInstance().discoveryInfo, serviceType: privateServiceType)
         
         self.peerList = NSMutableDictionary()
-        
+
         super.init()
         
-        self.timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("beginBrowsing"), userInfo: nil, repeats: false)
-        
         self.publicBrowser.delegate = self
-        //privateBrowser.delegate = self
+        privateBrowser.delegate = self
         self.publicAdvertiser.delegate = self
-        //privateAdvertiser.delegate = self
-        
-        //we won't start browsing yet we would rather join an existing network first
-        println("Began advertsising peer.")
-        self.publicAdvertiser.startAdvertisingPeer()
+        privateAdvertiser.delegate = self
     }
     
     convenience init(delegate: SMManagerDelegate){
@@ -58,12 +56,44 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
         self.delegate = delegate
     }
     
-    func beginBrowsing(){
-        println("Began broswsing for peers.")
-        publicBrowser.stopBrowsingForPeers()
+    //MARK: SMManager Public Methods
+    
+    func start(){
+        self.timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: Selector("beginPublicBrowsing"), userInfo: nil, repeats: false)
+        self.beginPublicAdvertising()
     }
     
-    // Incoming invitation request.  Call the invitationHandler block with YES and a valid session to connect the inviting peer to the session.
+    //MARK: SMManager Private Methods
+    
+    func beginPublicBrowsing(){
+        println("Stopped advertising and started browsing.")
+        self.stopPublicAdvertising()
+        publicBrowser.startBrowsingForPeers()
+        delegate?.startedBroswingForPeers()
+    }
+    
+    private func stopPublicBrowsing(){
+        println("Stopped public browsing")
+        publicBrowser.stopBrowsingForPeers()
+        delegate?.stoppedBrowsingForPeers()
+    }
+    
+    private func beginPublicAdvertising(){
+        println("Started public advertising")
+        self.publicAdvertiser.startAdvertisingPeer()
+        delegate?.startedAdvertisingSelf()
+    }
+    
+    private func stopPublicAdvertising(){
+        println("Stopped public advertising")
+        self.publicAdvertiser.startAdvertisingPeer()
+        delegate?.stoppedAdvertisingSelf()
+    }
+    
+    
+    //MARK: MCNearbyServiceAdvertiserDelegate Methods
+    
+    // Incoming invitation request.  Call the invitationHandler block with true and a valid session to connect the inviting peer to the session.
     func advertiser(advertiser: MCNearbyServiceAdvertiser!, didReceiveInvitationFromPeer peerID: MCPeerID!, withContext context: NSData!, invitationHandler: ((Bool, MCSession!) -> Void)!){
         
         println("Received invitation from \(peerID)")
@@ -77,9 +107,9 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
         case publicAdvertiser:
             println("Accepting invitation to public board from \(peerID)")
             invitationHandler(true, publicBoard.session)
-            timer.invalidate()
-            //publicAdvertiser.stopAdvertisingPeer()
-            publicBrowser.stopBrowsingForPeers()
+            timer!.invalidate()
+            //Now that we've joined a session we want to find other peers to join
+            self.beginPublicBrowsing()
             break
         case privateAdvertiser:
             delegate?.didReceivePrivateInvitationFromPeer(peerList.objectForKey(peerID) as SMPeer, invitationHandler: { (didAccept : Bool) -> Void in
@@ -103,9 +133,12 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
           println("Could not advertise peer.")
     }
     
-    func browser(browser: MCNearbyServiceBrowser!, foundPeer peerID: MCPeerID!, withDiscoveryInfo info: [NSObject : AnyObject]!){
+    
+    //MARK: MCNearbyServiceBrowser Methods
+    
+    func browser(browser: MCNearbyServiceBrowser!, foundPeer peerID: MCPeerID!, withDiscoveryInfo info: [NSObject : AnyObject]!) {
         //add this peer to our list no matter what
-        println("Found peer : \(peerID).")
+        println("Found peer : \(peerID) with discovery info \(info as NSDictionary).")
         peerList.setObject(SMPeer(peerID: peerID), forKey: peerID)
         switch browser{
         case publicBrowser:

@@ -17,9 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        //let session = MCSession(peer: MCPeerID(displayName: "Mary"))
-      //  let serviceType = "io-objc-mpc" // Limited to 15 ASCII characters
-       // window!.rootViewController = MCBrowserViewController(serviceType: serviceType, session: session)
+//        let session = MCSession(peer: MCPeerID(displayName: "Mary"))
+//       let serviceType = "io-objc-mpc" // Limited to 15 ASCII characters
+//       window!.rootViewController = MCBrowserViewController(serviceType: serviceType, session: session)
         return true
     }
 

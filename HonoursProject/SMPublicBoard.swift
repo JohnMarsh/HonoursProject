@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 John Marsh. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import MultipeerConnectivity
 
 
@@ -38,6 +38,10 @@ class SMPublicBoard: NSObject, MCSessionDelegate {
             break
         }
     }
+    
+    //MARK: SMPublicBoard public methods
+    
+    //MARK: MCSessionDelegate Methods
     
     // Received data from remote peer
     func session(session: MCSession!, didReceiveData data: NSData!, fromPeer peerID: MCPeerID!){
