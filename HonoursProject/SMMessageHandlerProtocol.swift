@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol SMMessageHandlerProtocol {
+protocol SMMessageReceiverProtocol {
     func handleMessage(message : SMMessage)
 }

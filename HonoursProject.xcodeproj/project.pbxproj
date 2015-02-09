@@ -10,10 +10,6 @@
 		411454D11A895BEC0092E645 /* SMPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411454D01A895BEC0092E645 /* SMPost.swift */; };
 		411454D31A8967B20092E645 /* SMMessageHandlerDispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411454D21A8967B20092E645 /* SMMessageHandlerDispatch.swift */; };
 		411454D51A896B690092E645 /* SMMessageHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411454D41A896B690092E645 /* SMMessageHandlerProtocol.swift */; };
-		411454D91A896C6F0092E645 /* SMProfileMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411454D81A896C6F0092E645 /* SMProfileMessageHandler.swift */; };
-		411454DB1A896C7E0092E645 /* SMTextMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411454DA1A896C7E0092E645 /* SMTextMessageHandler.swift */; };
-		411454DD1A896C8F0092E645 /* SMImageMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411454DC1A896C8F0092E645 /* SMImageMessageHandler.swift */; };
-		411454DF1A896CA00092E645 /* SMHeartbeatMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411454DE1A896CA00092E645 /* SMHeartbeatMessageHandler.swift */; };
 		41180F591A7DA68500DCD16D /* SMPeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41180F581A7DA68500DCD16D /* SMPeer.swift */; };
 		417EF4D51A78858500689B1E /* SMMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417EF4D41A78858500689B1E /* SMMessage.swift */; };
 		4195ABC31A3F912B001807E9 /* PeerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4195ABC21A3F912B001807E9 /* PeerViewController.swift */; };
@@ -43,10 +39,6 @@
 		411454D01A895BEC0092E645 /* SMPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMPost.swift; sourceTree = "<group>"; };
 		411454D21A8967B20092E645 /* SMMessageHandlerDispatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMMessageHandlerDispatch.swift; sourceTree = "<group>"; };
 		411454D41A896B690092E645 /* SMMessageHandlerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMMessageHandlerProtocol.swift; sourceTree = "<group>"; };
-		411454D81A896C6F0092E645 /* SMProfileMessageHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMProfileMessageHandler.swift; sourceTree = "<group>"; };
-		411454DA1A896C7E0092E645 /* SMTextMessageHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMTextMessageHandler.swift; sourceTree = "<group>"; };
-		411454DC1A896C8F0092E645 /* SMImageMessageHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMImageMessageHandler.swift; sourceTree = "<group>"; };
-		411454DE1A896CA00092E645 /* SMHeartbeatMessageHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMHeartbeatMessageHandler.swift; sourceTree = "<group>"; };
 		41180F581A7DA68500DCD16D /* SMPeer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMPeer.swift; sourceTree = "<group>"; };
 		417EF4D41A78858500689B1E /* SMMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMMessage.swift; sourceTree = "<group>"; };
 		4195ABC21A3F912B001807E9 /* PeerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeerViewController.swift; sourceTree = "<group>"; };
@@ -87,23 +79,11 @@
 		411454D61A896BA10092E645 /* SMMessaging */ = {
 			isa = PBXGroup;
 			children = (
-				411454D71A896C470092E645 /* MessageHandlers */,
 				417EF4D41A78858500689B1E /* SMMessage.swift */,
 				411454D21A8967B20092E645 /* SMMessageHandlerDispatch.swift */,
 				411454D41A896B690092E645 /* SMMessageHandlerProtocol.swift */,
 			);
 			name = SMMessaging;
-			sourceTree = "<group>";
-		};
-		411454D71A896C470092E645 /* MessageHandlers */ = {
-			isa = PBXGroup;
-			children = (
-				411454D81A896C6F0092E645 /* SMProfileMessageHandler.swift */,
-				411454DA1A896C7E0092E645 /* SMTextMessageHandler.swift */,
-				411454DC1A896C8F0092E645 /* SMImageMessageHandler.swift */,
-				411454DE1A896CA00092E645 /* SMHeartbeatMessageHandler.swift */,
-			);
-			name = MessageHandlers;
 			sourceTree = "<group>";
 		};
 		4195ABBF1A3F8DD9001807E9 /* SocialMeshFramework */ = {
@@ -286,13 +266,9 @@
 				41EC87D21A648BBE00B4BE68 /* SMPrivateSession.swift in Sources */,
 				41180F591A7DA68500DCD16D /* SMPeer.swift in Sources */,
 				4195ABC31A3F912B001807E9 /* PeerViewController.swift in Sources */,
-				411454DB1A896C7E0092E645 /* SMTextMessageHandler.swift in Sources */,
 				41EC87CC1A648B8700B4BE68 /* SMUser.swift in Sources */,
-				411454D91A896C6F0092E645 /* SMProfileMessageHandler.swift in Sources */,
-				411454DD1A896C8F0092E645 /* SMImageMessageHandler.swift in Sources */,
 				41DDE3E61A1E7FD3009CF828 /* NoticeBoardViewController.swift in Sources */,
 				41EC87CE1A648B9E00B4BE68 /* SMManager.swift in Sources */,
-				411454DF1A896CA00092E645 /* SMHeartbeatMessageHandler.swift in Sources */,
 				417EF4D51A78858500689B1E /* SMMessage.swift in Sources */,
 				411454D11A895BEC0092E645 /* SMPost.swift in Sources */,
 			);
