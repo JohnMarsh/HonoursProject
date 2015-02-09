@@ -11,18 +11,42 @@ import MultipeerConnectivity
 
 class SMPrivateSession: NSObject, MCSessionDelegate {
     
-    var session : MCSession?
-    
+    var session : MCSession
+    var peer : MCPeerID?
+    var posts : [SMPost]
     
     override init(){
+        session = MCSession(peer: SMUser.sharedInstance().peerId)
+        posts = []
         super.init()
+        session.delegate = self
     }
    
-    convenience init(s : MCSession){
+    convenience init(p: MCPeerID){
         self.init()
-        session = s
-        session?.delegate = self
+        peer = p
     }
+
+    
+    //MARK: SMPrivateSession Methods
+    
+    func sendTextToPeer(text : String){
+        
+    }
+    
+    func sendResourceToPeer(){
+        
+    }
+    
+    func startStreamingCamera(){
+
+    }
+    
+    func stopStreamingCamera(){
+     
+    }
+    
+    //MARK: MCSessionDelegate Methods
     
     // Remote peer changed state
     func session(session: MCSession!, peer peerID: MCPeerID!, didChangeState state: MCSessionState){

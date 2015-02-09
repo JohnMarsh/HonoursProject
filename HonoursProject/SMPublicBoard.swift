@@ -13,10 +13,12 @@ import MultipeerConnectivity
 class SMPublicBoard: NSObject, MCSessionDelegate {
     
     var session : MCSession
+    var posts : [SMPost]
     
     
     override init(){
         session = MCSession(peer: SMUser.sharedInstance().peerId)
+        posts = []
         super.init()
         session.delegate = self
     }

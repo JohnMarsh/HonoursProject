@@ -34,21 +34,16 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
     override init(){
         self.publicBoard = SMPublicBoard()
         self.privateSessions = NSMutableDictionary()
-        
         self.publicBrowser = MCNearbyServiceBrowser(peer: SMUser.sharedInstance().peerId, serviceType: publicServiceType)
         self.privateBrowser = MCNearbyServiceBrowser(peer: SMUser.sharedInstance().peerId, serviceType: privateServiceType)
-        
         self.publicAdvertiser = MCNearbyServiceAdvertiser(peer: SMUser.sharedInstance().peerId, discoveryInfo: SMUser.sharedInstance().discoveryInfo, serviceType: publicServiceType)
         self.privateAdvertiser = MCNearbyServiceAdvertiser(peer: SMUser.sharedInstance().peerId, discoveryInfo: SMUser.sharedInstance().discoveryInfo, serviceType: privateServiceType)
-        
         self.peerList = NSMutableDictionary()
-
         super.init()
-        
         self.publicBrowser.delegate = self
-        privateBrowser.delegate = self
+        self.privateBrowser.delegate = self
         self.publicAdvertiser.delegate = self
-        privateAdvertiser.delegate = self
+        self.privateAdvertiser.delegate = self
     }
     
     convenience init(delegate: SMManagerDelegate){
@@ -95,14 +90,7 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
     
     // Incoming invitation request.  Call the invitationHandler block with true and a valid session to connect the inviting peer to the session.
     func advertiser(advertiser: MCNearbyServiceAdvertiser!, didReceiveInvitationFromPeer peerID: MCPeerID!, withContext context: NSData!, invitationHandler: ((Bool, MCSession!) -> Void)!){
-        
         println("Received invitation from \(peerID)")
-
-        //if this peer isn't in our list then add them
-        if(peerList.objectForKey(peerList) == nil){
-            peerList.setObject(SMPeer(peerID: peerID), forKey: peerID)
-        }
-        
         switch advertiser {
         case publicAdvertiser:
             println("Accepting invitation to public board from \(peerID)")
@@ -114,7 +102,7 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
         case privateAdvertiser:
             delegate?.didReceivePrivateInvitationFromPeer(peerList.objectForKey(peerID) as SMPeer, invitationHandler: { (didAccept : Bool) -> Void in
                 if(didAccept){
-                    let privateSession : SMPrivateSession = SMPrivateSession(s: MCSession(peer:SMUser.sharedInstance().peerId))
+                    let privateSession : SMPrivateSession = SMPrivateSession(p: peerID)
                     self.privateSessions.setObject(privateSession, forKey: peerID)
                     invitationHandler(true, privateSession.session)
                 }else{
@@ -139,7 +127,7 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
     func browser(browser: MCNearbyServiceBrowser!, foundPeer peerID: MCPeerID!, withDiscoveryInfo info: [NSObject : AnyObject]!) {
         //add this peer to our list no matter what
         println("Found peer : \(peerID) with discovery info \(info as NSDictionary).")
-        peerList.setObject(SMPeer(peerID: peerID), forKey: peerID)
+        peerList.setObject(SMPeer(peerID: peerID, info: info), forKey: peerID)
         switch browser{
         case publicBrowser:
             println("Inviting peer : \(peerID).")
