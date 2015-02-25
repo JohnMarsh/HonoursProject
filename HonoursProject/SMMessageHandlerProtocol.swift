@@ -10,4 +10,5 @@ import Foundation
 
 protocol SMMessageReceiverProtocol {
     func handleMessage(message : SMMessage)
+    func handlerMessageType() -> String
 }

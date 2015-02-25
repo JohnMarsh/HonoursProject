@@ -9,13 +9,6 @@
 import Foundation
 import MultipeerConnectivity
 
-enum SMMessageType : String {
-    case Text = "Text"
-    case Profile = "Profile"
-    case Heartbeat = "Heartbeat"
-    case Image = "Image"
-}
-
 class SMMessage: NSObject {
     
     var messageType : SMMessageType!
