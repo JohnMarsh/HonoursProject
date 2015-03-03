@@ -9,16 +9,20 @@
 import Foundation
 import MultipeerConnectivity
 
-class SMPrivateSession: NSObject, MCSessionDelegate {
+class SMPrivateSession: NSObject, MCSessionDelegate, SMMessageHandlerDelegate {
     
     var session : MCSession
     var peer : MCPeerID?
     var posts : [SMPost]
+    var timer : NSTimer?
+    var isActive : Bool
     
     override init(){
-        session = MCSession(peer: SMUser.sharedInstance().peerId)
+        session = MCSession(peer: SMUser.shared.peerId)
         posts = []
+        isActive = true
         super.init()
+        self.timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: Selector("sendHeartbeat"), userInfo: nil, repeats: true)
         session.delegate = self
     }
    
@@ -26,7 +30,6 @@ class SMPrivateSession: NSObject, MCSessionDelegate {
         self.init()
         peer = p
     }
-
     
     //MARK: SMPrivateSession Methods
     
@@ -44,6 +47,20 @@ class SMPrivateSession: NSObject, MCSessionDelegate {
     
     func stopStreamingCamera(){
      
+    }
+    
+    func sendHeartbeat(){
+        
+    }
+    
+    //MARK: SMMessageHandlerDelegate
+    
+    func didReceivePost(post: SMPost) {
+        posts.append(post);
+    }
+    
+    func didReceiveHeartbeat() {
+        isActive = true
     }
     
     //MARK: MCSessionDelegate Methods
@@ -66,7 +83,7 @@ class SMPrivateSession: NSObject, MCSessionDelegate {
     
     // Received data from remote peer
     func session(session: MCSession!, didReceiveData data: NSData!, fromPeer peerID: MCPeerID!){
-        
+        SMMessageHandlerDispatch.shared.dispatch(SMMessage(fromJSONData: data), forDelegate: self)
     }
     
     // Received a byte stream from remote peer

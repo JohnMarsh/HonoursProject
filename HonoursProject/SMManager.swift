@@ -34,16 +34,17 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
     override init(){
         self.publicBoard = SMPublicBoard()
         self.privateSessions = NSMutableDictionary()
-        self.publicBrowser = MCNearbyServiceBrowser(peer: SMUser.sharedInstance().peerId, serviceType: publicServiceType)
-        self.privateBrowser = MCNearbyServiceBrowser(peer: SMUser.sharedInstance().peerId, serviceType: privateServiceType)
-        self.publicAdvertiser = MCNearbyServiceAdvertiser(peer: SMUser.sharedInstance().peerId, discoveryInfo: SMUser.sharedInstance().discoveryInfo, serviceType: publicServiceType)
-        self.privateAdvertiser = MCNearbyServiceAdvertiser(peer: SMUser.sharedInstance().peerId, discoveryInfo: SMUser.sharedInstance().discoveryInfo, serviceType: privateServiceType)
+        self.publicBrowser = MCNearbyServiceBrowser(peer: SMUser.shared.peerId, serviceType: publicServiceType)
+        self.privateBrowser = MCNearbyServiceBrowser(peer: SMUser.shared.peerId, serviceType: privateServiceType)
+        self.publicAdvertiser = MCNearbyServiceAdvertiser(peer: SMUser.shared.peerId, discoveryInfo: SMUser.shared.discoveryInfo, serviceType: publicServiceType)
+        self.privateAdvertiser = MCNearbyServiceAdvertiser(peer: SMUser.shared.peerId, discoveryInfo: SMUser.shared.discoveryInfo, serviceType: privateServiceType)
         self.peerList = NSMutableDictionary()
         super.init()
         self.publicBrowser.delegate = self
         self.privateBrowser.delegate = self
         self.publicAdvertiser.delegate = self
         self.privateAdvertiser.delegate = self
+        SMMessageHandlerDispatch()
     }
     
     convenience init(delegate: SMManagerDelegate){

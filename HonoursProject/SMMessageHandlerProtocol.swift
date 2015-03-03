@@ -7,8 +7,7 @@
 //
 
 import Foundation
-
-protocol SMMessageReceiverProtocol {
-    func handleMessage(message : SMMessage)
-    func handlerMessageType() -> String
+@objc protocol SMMessageHandlerProtocol {
+    func handleMessage(message : SMMessage, forDelegate delegate : SMMessageHandlerDelegate)
+    func handlerType() -> String
 }

@@ -12,8 +12,17 @@
 		411454D51A896B690092E645 /* SMMessageHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411454D41A896B690092E645 /* SMMessageHandlerProtocol.swift */; };
 		41180F591A7DA68500DCD16D /* SMPeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41180F581A7DA68500DCD16D /* SMPeer.swift */; };
 		411E3A7D1A9E5BA000AF5D4F /* SMMessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411E3A7C1A9E5BA000AF5D4F /* SMMessageType.swift */; };
+		411E3A821A9E68D700AF5D4F /* SMHeartbeatHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411E3A811A9E68D700AF5D4F /* SMHeartbeatHandler.swift */; };
+		411E3A841A9E68E500AF5D4F /* SMProfileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411E3A831A9E68E500AF5D4F /* SMProfileHandler.swift */; };
+		411E3A861A9E690700AF5D4F /* SMImageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411E3A851A9E690700AF5D4F /* SMImageHandler.swift */; };
+		411E3A881A9E691400AF5D4F /* SMTextHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411E3A871A9E691400AF5D4F /* SMTextHandler.swift */; };
+		414869331A9E7EB9006A3BAB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414869321A9E7EB9006A3BAB /* Utils.swift */; };
+		414869351AA3FD62006A3BAB /* SMUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414869341AA3FD62006A3BAB /* SMUserProfile.swift */; };
 		417EF4D51A78858500689B1E /* SMMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417EF4D41A78858500689B1E /* SMMessage.swift */; };
 		4195ABC31A3F912B001807E9 /* PeerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4195ABC21A3F912B001807E9 /* PeerViewController.swift */; };
+		41C6C9911AA51998008A6E1C /* HonoursProject.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 41C6C9901AA51998008A6E1C /* HonoursProject.xcdatamodel */; };
+		41C6C9931AA527DE008A6E1C /* SMMessageFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C6C9921AA527DE008A6E1C /* SMMessageFactory.swift */; };
+		41C6C9951AA53F5D008A6E1C /* SMMessageHandlerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C6C9941AA53F5D008A6E1C /* SMMessageHandlerDelegate.swift */; };
 		41DDE3E41A1E7FD3009CF828 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DDE3E31A1E7FD3009CF828 /* AppDelegate.swift */; };
 		41DDE3E61A1E7FD3009CF828 /* NoticeBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DDE3E51A1E7FD3009CF828 /* NoticeBoardViewController.swift */; };
 		41DDE3EB1A1E7FD3009CF828 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41DDE3E91A1E7FD3009CF828 /* Main.storyboard */; };
@@ -42,8 +51,17 @@
 		411454D41A896B690092E645 /* SMMessageHandlerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMMessageHandlerProtocol.swift; sourceTree = "<group>"; };
 		41180F581A7DA68500DCD16D /* SMPeer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMPeer.swift; sourceTree = "<group>"; };
 		411E3A7C1A9E5BA000AF5D4F /* SMMessageType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMMessageType.swift; sourceTree = "<group>"; };
+		411E3A811A9E68D700AF5D4F /* SMHeartbeatHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMHeartbeatHandler.swift; sourceTree = "<group>"; };
+		411E3A831A9E68E500AF5D4F /* SMProfileHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMProfileHandler.swift; sourceTree = "<group>"; };
+		411E3A851A9E690700AF5D4F /* SMImageHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMImageHandler.swift; sourceTree = "<group>"; };
+		411E3A871A9E691400AF5D4F /* SMTextHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMTextHandler.swift; sourceTree = "<group>"; };
+		414869321A9E7EB9006A3BAB /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		414869341AA3FD62006A3BAB /* SMUserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMUserProfile.swift; sourceTree = "<group>"; };
 		417EF4D41A78858500689B1E /* SMMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMMessage.swift; sourceTree = "<group>"; };
 		4195ABC21A3F912B001807E9 /* PeerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeerViewController.swift; sourceTree = "<group>"; };
+		41C6C9901AA51998008A6E1C /* HonoursProject.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HonoursProject.xcdatamodel; sourceTree = "<group>"; };
+		41C6C9921AA527DE008A6E1C /* SMMessageFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMMessageFactory.swift; sourceTree = "<group>"; };
+		41C6C9941AA53F5D008A6E1C /* SMMessageHandlerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMMessageHandlerDelegate.swift; sourceTree = "<group>"; };
 		41DDE3DE1A1E7FD3009CF828 /* HonoursProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HonoursProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41DDE3E21A1E7FD3009CF828 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41DDE3E31A1E7FD3009CF828 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,19 +99,43 @@
 		411454D61A896BA10092E645 /* SMMessaging */ = {
 			isa = PBXGroup;
 			children = (
+				411E3A801A9E68AE00AF5D4F /* SMMessageHandlers */,
 				417EF4D41A78858500689B1E /* SMMessage.swift */,
+				41C6C9921AA527DE008A6E1C /* SMMessageFactory.swift */,
 				411E3A7C1A9E5BA000AF5D4F /* SMMessageType.swift */,
 				411454D21A8967B20092E645 /* SMMessageHandlerDispatch.swift */,
 				411454D41A896B690092E645 /* SMMessageHandlerProtocol.swift */,
+				41C6C9941AA53F5D008A6E1C /* SMMessageHandlerDelegate.swift */,
 			);
 			name = SMMessaging;
+			sourceTree = "<group>";
+		};
+		411E3A801A9E68AE00AF5D4F /* SMMessageHandlers */ = {
+			isa = PBXGroup;
+			children = (
+				411E3A811A9E68D700AF5D4F /* SMHeartbeatHandler.swift */,
+				411E3A831A9E68E500AF5D4F /* SMProfileHandler.swift */,
+				411E3A851A9E690700AF5D4F /* SMImageHandler.swift */,
+				411E3A871A9E691400AF5D4F /* SMTextHandler.swift */,
+			);
+			name = SMMessageHandlers;
+			sourceTree = "<group>";
+		};
+		414869311A9E7EAA006A3BAB /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				414869321A9E7EB9006A3BAB /* Utils.swift */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 		4195ABBF1A3F8DD9001807E9 /* SocialMeshFramework */ = {
 			isa = PBXGroup;
 			children = (
+				414869311A9E7EAA006A3BAB /* Utils */,
 				411454D61A896BA10092E645 /* SMMessaging */,
 				41EC87CB1A648B8700B4BE68 /* SMUser.swift */,
+				414869341AA3FD62006A3BAB /* SMUserProfile.swift */,
 				411454D01A895BEC0092E645 /* SMPost.swift */,
 				41180F581A7DA68500DCD16D /* SMPeer.swift */,
 				41EC87CD1A648B9E00B4BE68 /* SMManager.swift */,
@@ -128,6 +170,7 @@
 				41DDE3E31A1E7FD3009CF828 /* AppDelegate.swift */,
 				41DDE3E51A1E7FD3009CF828 /* NoticeBoardViewController.swift */,
 				4195ABC21A3F912B001807E9 /* PeerViewController.swift */,
+				41C6C9901AA51998008A6E1C /* HonoursProject.xcdatamodel */,
 				41DDE3E91A1E7FD3009CF828 /* Main.storyboard */,
 				41DDE3EC1A1E7FD3009CF828 /* Images.xcassets */,
 				41DDE3EE1A1E7FD4009CF828 /* LaunchScreen.xib */,
@@ -262,19 +305,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				414869351AA3FD62006A3BAB /* SMUserProfile.swift in Sources */,
+				411E3A861A9E690700AF5D4F /* SMImageHandler.swift in Sources */,
 				411454D31A8967B20092E645 /* SMMessageHandlerDispatch.swift in Sources */,
+				411E3A841A9E68E500AF5D4F /* SMProfileHandler.swift in Sources */,
 				41DDE3E41A1E7FD3009CF828 /* AppDelegate.swift in Sources */,
 				411454D51A896B690092E645 /* SMMessageHandlerProtocol.swift in Sources */,
+				41C6C9931AA527DE008A6E1C /* SMMessageFactory.swift in Sources */,
 				41EC87D01A648BAD00B4BE68 /* SMPublicBoard.swift in Sources */,
+				411E3A881A9E691400AF5D4F /* SMTextHandler.swift in Sources */,
 				41EC87D21A648BBE00B4BE68 /* SMPrivateSession.swift in Sources */,
 				41180F591A7DA68500DCD16D /* SMPeer.swift in Sources */,
 				4195ABC31A3F912B001807E9 /* PeerViewController.swift in Sources */,
 				411E3A7D1A9E5BA000AF5D4F /* SMMessageType.swift in Sources */,
+				414869331A9E7EB9006A3BAB /* Utils.swift in Sources */,
 				41EC87CC1A648B8700B4BE68 /* SMUser.swift in Sources */,
+				41C6C9951AA53F5D008A6E1C /* SMMessageHandlerDelegate.swift in Sources */,
 				41DDE3E61A1E7FD3009CF828 /* NoticeBoardViewController.swift in Sources */,
 				41EC87CE1A648B9E00B4BE68 /* SMManager.swift in Sources */,
+				411E3A821A9E68D700AF5D4F /* SMHeartbeatHandler.swift in Sources */,
 				417EF4D51A78858500689B1E /* SMMessage.swift in Sources */,
 				411454D11A895BEC0092E645 /* SMPost.swift in Sources */,
+				41C6C9911AA51998008A6E1C /* HonoursProject.xcdatamodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

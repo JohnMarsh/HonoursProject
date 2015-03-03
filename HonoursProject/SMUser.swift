@@ -9,16 +9,22 @@
 import Foundation
 import MultipeerConnectivity
 
-private let _instance = SMUser()
+
 
 class SMUser: NSObject {
     
     let peerId : MCPeerID
     let guid : String
     var discoveryInfo : NSMutableDictionary
+    var profile : SMUserProfile
     
-    class func sharedInstance() -> SMUser{
-        return _instance
+    class var shared : SMUser {
+        
+        struct Static {
+            static let instance : SMUser = SMUser()
+        }
+        
+        return Static.instance
     }
     
     override init() {
@@ -26,8 +32,21 @@ class SMUser: NSObject {
         guid = UIDevice.currentDevice().identifierForVendor.UUIDString
         discoveryInfo = NSMutableDictionary()
         discoveryInfo.setObject(guid, forKey: "guid")
+        profile = SMUserProfile()
+        profile.username = peerId.displayName
         super.init()
     }
+    
+    func buildProfileMessage() -> SMMessage{
+        var msg = SMMessage()
+        msg.messageType = SMMessageType.Profile
+        msg.sender = profile.username ?? peerId.displayName
+        msg.addValue(profile.username ?? peerId.displayName, forKey: "username")
+        msg.addValue(profile.userDescription ?? "", forKey: "userDescription")
+        return msg
+    }
+    
+
     
    
 }

@@ -10,14 +10,14 @@ import Foundation
 import MultipeerConnectivity
 
 
-class SMPublicBoard: NSObject, MCSessionDelegate {
+class SMPublicBoard: NSObject, MCSessionDelegate, SMMessageHandlerDelegate {
     
     var session : MCSession
     var posts : [SMPost]
     
     
     override init(){
-        session = MCSession(peer: SMUser.sharedInstance().peerId)
+        session = MCSession(peer: SMUser.shared.peerId)
         posts = []
         super.init()
         session.delegate = self
@@ -32,6 +32,8 @@ class SMPublicBoard: NSObject, MCSessionDelegate {
             break
         case MCSessionState.Connected:
              println("\(peerID) has connected to public board.")
+             var error : NSErrorPointer = NSErrorPointer()
+             session.sendData(SMUser.shared.buildProfileMessage().messageToJSONData(), toPeers: [peerID], withMode: MCSessionSendDataMode.Reliable, error: error)
             break
         case MCSessionState.NotConnected:
              println("\(peerID) is not connected to public board.")
@@ -43,11 +45,26 @@ class SMPublicBoard: NSObject, MCSessionDelegate {
     
     //MARK: SMPublicBoard public methods
     
+    func postTextToBoard(text : String){
+        var error : NSErrorPointer = NSErrorPointer()
+        session.sendData(SMMessageFactory.createTextMessageWithString(text).messageToJSONData(), toPeers: session.connectedPeers, withMode:  MCSessionSendDataMode.Reliable, error: error)
+    }
+    
+    func postImageToBoard(){
+       
+    }
+    
+    //MARK: SMMessageHandlerDelegate 
+    
+    func didReceivePost(post: SMPost) {
+        posts.append(post);
+    }
+    
     //MARK: MCSessionDelegate Methods
     
     // Received data from remote peer
     func session(session: MCSession!, didReceiveData data: NSData!, fromPeer peerID: MCPeerID!){
-        
+        SMMessageHandlerDispatch.shared.dispatch(SMMessage(fromJSONData: data), forDelegate : self)
     }
     
     // Received a byte stream from remote peer
