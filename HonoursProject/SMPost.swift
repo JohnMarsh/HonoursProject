@@ -12,18 +12,20 @@ class SMPost: NSObject {
     
     var poster : SMPeer!
     var textContent : String?
-    var attachment : NSData?
+    var attachmentName : String?
+    var timestamp : NSDate!
     
     
-    convenience init(poster: SMPeer!, text: String?, attachment: NSData?){
+    convenience init(poster: SMPeer!, text: String?, attachment: String?, timestamp : NSDate!){
         self.init()
+        self.timestamp = timestamp
         self.poster = poster
         self.textContent = text
-        self.attachment = attachment
+        self.attachmentName = attachment
     }
     
     func hasAttachment() -> Bool{
-        return attachment != nil
+        return attachmentName != nil
     }
 
 }

@@ -13,3 +13,10 @@ prefix operator  ^ {}
 prefix func ^ (uiUpdate : ()->()){
     dispatch_async(dispatch_get_main_queue(), uiUpdate)
 }
+
+
+prefix operator  ~ {}
+
+prefix func ~ (backgroundTask : ()->()){
+    dispatch_async(dispatch_get_global_queue(0, 0), backgroundTask)
+}

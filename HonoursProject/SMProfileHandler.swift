@@ -16,4 +16,5 @@ class SMProfileHandler: SMMessageHandlerProtocol {
     
     func handleMessage(message: SMMessage, forDelegate delegate : SMMessageHandlerDelegate) {
         println("Handling Profile")
-    }}
+    }
+}

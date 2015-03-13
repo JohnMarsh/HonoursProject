@@ -14,5 +14,6 @@ enum SMMessageType : String {
     case Profile = "Profile"
     case Heartbeat = "Heartbeat"
     case Image = "Image"
+    case Typing = "Typing"
 }
 

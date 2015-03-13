@@ -18,6 +18,9 @@
 		411E3A881A9E691400AF5D4F /* SMTextHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411E3A871A9E691400AF5D4F /* SMTextHandler.swift */; };
 		414869331A9E7EB9006A3BAB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414869321A9E7EB9006A3BAB /* Utils.swift */; };
 		414869351AA3FD62006A3BAB /* SMUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414869341AA3FD62006A3BAB /* SMUserProfile.swift */; };
+		414C31C31AB0FFEF0075BD53 /* PrivateSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414C31C21AB0FFEF0075BD53 /* PrivateSessionViewController.swift */; };
+		414C31C91AB1F1C20075BD53 /* SMTypingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414C31C81AB1F1C20075BD53 /* SMTypingHandler.swift */; };
+		414C31CE1AB22EA80075BD53 /* SMResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414C31CD1AB22EA80075BD53 /* SMResourceManager.swift */; };
 		417EF4D51A78858500689B1E /* SMMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417EF4D41A78858500689B1E /* SMMessage.swift */; };
 		4195ABC31A3F912B001807E9 /* PeerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4195ABC21A3F912B001807E9 /* PeerViewController.swift */; };
 		41C6C9911AA51998008A6E1C /* HonoursProject.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 41C6C9901AA51998008A6E1C /* HonoursProject.xcdatamodel */; };
@@ -33,6 +36,7 @@
 		41EC87CE1A648B9E00B4BE68 /* SMManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EC87CD1A648B9E00B4BE68 /* SMManager.swift */; };
 		41EC87D01A648BAD00B4BE68 /* SMPublicBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EC87CF1A648BAD00B4BE68 /* SMPublicBoard.swift */; };
 		41EC87D21A648BBE00B4BE68 /* SMPrivateSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EC87D11A648BBE00B4BE68 /* SMPrivateSession.swift */; };
+		E5F1C02E2E905C5D4F530740 /* libPods-HonoursProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ACB9781797C9A5DC286515A /* libPods-HonoursProject.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +50,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0ACB9781797C9A5DC286515A /* libPods-HonoursProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HonoursProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		27E52D52C0A21CE273EBF9DF /* Pods-HonoursProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HonoursProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HonoursProject/Pods-HonoursProject.debug.xcconfig"; sourceTree = "<group>"; };
 		411454D01A895BEC0092E645 /* SMPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMPost.swift; sourceTree = "<group>"; };
 		411454D21A8967B20092E645 /* SMMessageHandlerDispatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMMessageHandlerDispatch.swift; sourceTree = "<group>"; };
 		411454D41A896B690092E645 /* SMMessageHandlerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMMessageHandlerProtocol.swift; sourceTree = "<group>"; };
@@ -57,6 +63,10 @@
 		411E3A871A9E691400AF5D4F /* SMTextHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMTextHandler.swift; sourceTree = "<group>"; };
 		414869321A9E7EB9006A3BAB /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		414869341AA3FD62006A3BAB /* SMUserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMUserProfile.swift; sourceTree = "<group>"; };
+		414C31C21AB0FFEF0075BD53 /* PrivateSessionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateSessionViewController.swift; sourceTree = "<group>"; };
+		414C31C51AB11A360075BD53 /* HonoursProject-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HonoursProject-Bridging-Header.h"; sourceTree = "<group>"; };
+		414C31C81AB1F1C20075BD53 /* SMTypingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMTypingHandler.swift; sourceTree = "<group>"; };
+		414C31CD1AB22EA80075BD53 /* SMResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMResourceManager.swift; sourceTree = "<group>"; };
 		417EF4D41A78858500689B1E /* SMMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMMessage.swift; sourceTree = "<group>"; };
 		4195ABC21A3F912B001807E9 /* PeerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeerViewController.swift; sourceTree = "<group>"; };
 		41C6C9901AA51998008A6E1C /* HonoursProject.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HonoursProject.xcdatamodel; sourceTree = "<group>"; };
@@ -76,6 +86,7 @@
 		41EC87CD1A648B9E00B4BE68 /* SMManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMManager.swift; sourceTree = "<group>"; };
 		41EC87CF1A648BAD00B4BE68 /* SMPublicBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMPublicBoard.swift; sourceTree = "<group>"; };
 		41EC87D11A648BBE00B4BE68 /* SMPrivateSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMPrivateSession.swift; sourceTree = "<group>"; };
+		CF834D46768584415642F038 /* Pods-HonoursProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HonoursProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-HonoursProject/Pods-HonoursProject.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5F1C02E2E905C5D4F530740 /* libPods-HonoursProject.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,6 +129,7 @@
 				411E3A831A9E68E500AF5D4F /* SMProfileHandler.swift */,
 				411E3A851A9E690700AF5D4F /* SMImageHandler.swift */,
 				411E3A871A9E691400AF5D4F /* SMTextHandler.swift */,
+				414C31C81AB1F1C20075BD53 /* SMTypingHandler.swift */,
 			);
 			name = SMMessageHandlers;
 			sourceTree = "<group>";
@@ -129,18 +142,43 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
+		414C31CA1AB22E540075BD53 /* SMSessions */ = {
+			isa = PBXGroup;
+			children = (
+				411454D01A895BEC0092E645 /* SMPost.swift */,
+				41EC87CF1A648BAD00B4BE68 /* SMPublicBoard.swift */,
+				41EC87D11A648BBE00B4BE68 /* SMPrivateSession.swift */,
+			);
+			name = SMSessions;
+			sourceTree = "<group>";
+		};
+		414C31CB1AB22E710075BD53 /* SMUsers */ = {
+			isa = PBXGroup;
+			children = (
+				41EC87CB1A648B8700B4BE68 /* SMUser.swift */,
+				414869341AA3FD62006A3BAB /* SMUserProfile.swift */,
+				41180F581A7DA68500DCD16D /* SMPeer.swift */,
+			);
+			name = SMUsers;
+			sourceTree = "<group>";
+		};
+		414C31CC1AB22E920075BD53 /* SMPersistence */ = {
+			isa = PBXGroup;
+			children = (
+				414C31CD1AB22EA80075BD53 /* SMResourceManager.swift */,
+			);
+			name = SMPersistence;
+			sourceTree = "<group>";
+		};
 		4195ABBF1A3F8DD9001807E9 /* SocialMeshFramework */ = {
 			isa = PBXGroup;
 			children = (
+				414C31CC1AB22E920075BD53 /* SMPersistence */,
+				414C31CB1AB22E710075BD53 /* SMUsers */,
+				414C31CA1AB22E540075BD53 /* SMSessions */,
 				414869311A9E7EAA006A3BAB /* Utils */,
 				411454D61A896BA10092E645 /* SMMessaging */,
-				41EC87CB1A648B8700B4BE68 /* SMUser.swift */,
-				414869341AA3FD62006A3BAB /* SMUserProfile.swift */,
-				411454D01A895BEC0092E645 /* SMPost.swift */,
-				41180F581A7DA68500DCD16D /* SMPeer.swift */,
 				41EC87CD1A648B9E00B4BE68 /* SMManager.swift */,
-				41EC87CF1A648BAD00B4BE68 /* SMPublicBoard.swift */,
-				41EC87D11A648BBE00B4BE68 /* SMPrivateSession.swift */,
 			);
 			name = SocialMeshFramework;
 			sourceTree = "<group>";
@@ -151,6 +189,8 @@
 				41DDE3E01A1E7FD3009CF828 /* HonoursProject */,
 				41DDE3F81A1E7FD4009CF828 /* HonoursProjectTests */,
 				41DDE3DF1A1E7FD3009CF828 /* Products */,
+				8F9F2F0CE7D060D0771534D7 /* Pods */,
+				A7895AFF7EFF3D06C72C13BF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -170,11 +210,13 @@
 				41DDE3E31A1E7FD3009CF828 /* AppDelegate.swift */,
 				41DDE3E51A1E7FD3009CF828 /* NoticeBoardViewController.swift */,
 				4195ABC21A3F912B001807E9 /* PeerViewController.swift */,
+				414C31C21AB0FFEF0075BD53 /* PrivateSessionViewController.swift */,
 				41C6C9901AA51998008A6E1C /* HonoursProject.xcdatamodel */,
 				41DDE3E91A1E7FD3009CF828 /* Main.storyboard */,
 				41DDE3EC1A1E7FD3009CF828 /* Images.xcassets */,
 				41DDE3EE1A1E7FD4009CF828 /* LaunchScreen.xib */,
 				41DDE3E11A1E7FD3009CF828 /* Supporting Files */,
+				414C31C51AB11A360075BD53 /* HonoursProject-Bridging-Header.h */,
 			);
 			path = HonoursProject;
 			sourceTree = "<group>";
@@ -204,6 +246,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		8F9F2F0CE7D060D0771534D7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				27E52D52C0A21CE273EBF9DF /* Pods-HonoursProject.debug.xcconfig */,
+				CF834D46768584415642F038 /* Pods-HonoursProject.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		A7895AFF7EFF3D06C72C13BF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0ACB9781797C9A5DC286515A /* libPods-HonoursProject.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -211,9 +270,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 41DDE3FF1A1E7FD4009CF828 /* Build configuration list for PBXNativeTarget "HonoursProject" */;
 			buildPhases = (
+				D549A025D361815BBDD6C947 /* Check Pods Manifest.lock */,
 				41DDE3DA1A1E7FD3009CF828 /* Sources */,
 				41DDE3DB1A1E7FD3009CF828 /* Frameworks */,
 				41DDE3DC1A1E7FD3009CF828 /* Resources */,
+				ED95B98DA10BC4E5B9363D07 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -300,11 +361,45 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		D549A025D361815BBDD6C947 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		ED95B98DA10BC4E5B9363D07 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HonoursProject/Pods-HonoursProject-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		41DDE3DA1A1E7FD3009CF828 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				414C31CE1AB22EA80075BD53 /* SMResourceManager.swift in Sources */,
 				414869351AA3FD62006A3BAB /* SMUserProfile.swift in Sources */,
 				411E3A861A9E690700AF5D4F /* SMImageHandler.swift in Sources */,
 				411454D31A8967B20092E645 /* SMMessageHandlerDispatch.swift in Sources */,
@@ -314,6 +409,7 @@
 				41C6C9931AA527DE008A6E1C /* SMMessageFactory.swift in Sources */,
 				41EC87D01A648BAD00B4BE68 /* SMPublicBoard.swift in Sources */,
 				411E3A881A9E691400AF5D4F /* SMTextHandler.swift in Sources */,
+				414C31C91AB1F1C20075BD53 /* SMTypingHandler.swift in Sources */,
 				41EC87D21A648BBE00B4BE68 /* SMPrivateSession.swift in Sources */,
 				41180F591A7DA68500DCD16D /* SMPeer.swift in Sources */,
 				4195ABC31A3F912B001807E9 /* PeerViewController.swift in Sources */,
@@ -325,6 +421,7 @@
 				41EC87CE1A648B9E00B4BE68 /* SMManager.swift in Sources */,
 				411E3A821A9E68D700AF5D4F /* SMHeartbeatHandler.swift in Sources */,
 				417EF4D51A78858500689B1E /* SMMessage.swift in Sources */,
+				414C31C31AB0FFEF0075BD53 /* PrivateSessionViewController.swift in Sources */,
 				411454D11A895BEC0092E645 /* SMPost.swift in Sources */,
 				41C6C9911AA51998008A6E1C /* HonoursProject.xcdatamodel in Sources */,
 			);
@@ -385,6 +482,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -402,7 +500,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -428,6 +526,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -439,7 +538,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -449,6 +548,7 @@
 		};
 		41DDE4001A1E7FD4009CF828 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 27E52D52C0A21CE273EBF9DF /* Pods-HonoursProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -459,17 +559,18 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = HonoursProject/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "HonoursProject/HonoursProject-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		41DDE4011A1E7FD4009CF828 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CF834D46768584415642F038 /* Pods-HonoursProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -480,11 +581,11 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = HonoursProject/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "HonoursProject/HonoursProject-Bridging-Header.h";
 			};
 			name = Release;
 		};

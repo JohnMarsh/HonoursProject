@@ -10,5 +10,7 @@ import Foundation
 
 @objc protocol SMMessageHandlerDelegate{
     func didReceivePost(post : SMPost)
+    optional func peerDidStartTyping()
+    optional func peerDidStopStyping()
     optional func didReceiveHeartbeat()
 }

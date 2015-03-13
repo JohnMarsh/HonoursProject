@@ -12,12 +12,11 @@ import MultipeerConnectivity
 class SMPeer: NSObject {
     
     var peerID : MCPeerID!
-    var info : NSMutableDictionary!
+
     
-    convenience init(peerID : MCPeerID!, info: [NSObject : AnyObject]!){
+    convenience init(peerID : MCPeerID!){
         self.init()
-        self.peerID = peerID;
-        self.info = NSMutableDictionary(dictionary: info)
+        self.peerID = peerID
     }
    
 }

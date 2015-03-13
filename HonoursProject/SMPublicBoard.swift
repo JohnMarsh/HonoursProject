@@ -9,18 +9,27 @@
 import Foundation
 import MultipeerConnectivity
 
+protocol SMPublicBoardDelegate{
+    func receivedNewPost(post : SMPost)
+}
+
 
 class SMPublicBoard: NSObject, MCSessionDelegate, SMMessageHandlerDelegate {
     
     var session : MCSession
     var posts : [SMPost]
-    
+    var delegate : SMPublicBoardDelegate?
     
     override init(){
         session = MCSession(peer: SMUser.shared.peerId)
         posts = []
         super.init()
         session.delegate = self
+    }
+    
+    convenience init(delegate : SMPublicBoardDelegate){
+        self.init()
+        self.delegate = delegate
     }
     
     
@@ -47,7 +56,11 @@ class SMPublicBoard: NSObject, MCSessionDelegate, SMMessageHandlerDelegate {
     
     func postTextToBoard(text : String){
         var error : NSErrorPointer = NSErrorPointer()
-        session.sendData(SMMessageFactory.createTextMessageWithString(text).messageToJSONData(), toPeers: session.connectedPeers, withMode:  MCSessionSendDataMode.Reliable, error: error)
+        let message : SMMessage = SMMessageFactory.createTextMessageWithString(text)
+        let post = SMTextHandler.createSelfTextPost(message)
+        posts.append(post)
+        session.sendData(message.messageToJSONData(), toPeers: session.connectedPeers, withMode:  MCSessionSendDataMode.Reliable, error: error)
+        delegate?.receivedNewPost(post)
     }
     
     func postImageToBoard(){
@@ -58,6 +71,7 @@ class SMPublicBoard: NSObject, MCSessionDelegate, SMMessageHandlerDelegate {
     
     func didReceivePost(post: SMPost) {
         posts.append(post);
+        delegate?.receivedNewPost(post)
     }
     
     //MARK: MCSessionDelegate Methods

@@ -10,9 +10,27 @@ import Foundation
 
 class SMMessageFactory: NSObject {
     
+    
     class func createTextMessageWithString(text : String) -> SMMessage{
-        var message : SMMessage = SMMessage(type: SMMessageType.Text, sender: SMUser.shared.profile.username)
+        var message : SMMessage = SMMessage(type: SMMessageType.Text, sender: SMUser.shared.peerId.displayName)
         message.addValue(text, forKey: "text")
+        return message
+    }
+    
+    class func createHeartBeatMessage() -> SMMessage{
+        var message : SMMessage = SMMessage(type: SMMessageType.Heartbeat, sender: SMUser.shared.peerId.displayName)
+        return message
+    }
+    
+    class func createTypingDidStartMessage() -> SMMessage{
+        var message : SMMessage = SMMessage(type: SMMessageType.Typing, sender: SMUser.shared.peerId.displayName)
+        message.addValue("true", forKey: "isTyping")
+        return message
+    }
+    
+    class func createTypingDidStopMessage() -> SMMessage{
+        var message : SMMessage = SMMessage(type: SMMessageType.Typing, sender: SMUser.shared.peerId.displayName)
+        message.addValue("false", forKey: "isTyping")
         return message
     }
     

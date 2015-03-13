@@ -8,12 +8,16 @@
 
 import UIKit
 
-class SMImageHandler: SMMessageHandlerProtocol {
+class SMImageHandler {
     
     func handlerType() -> String {
         return   SMMessageType.Image.rawValue
     }
     
-    func handleMessage(message: SMMessage, forDelegate delegate : SMMessageHandlerDelegate) {
-        println("Handling image")
-    }}
+    class func handleImageAndReturnPost(peer : SMPeer, timestamp : NSDate, url : NSURL, completionHandler: (SMPost!)->Void!) {
+        SMResourceManager.saveResourceFromTempUrl(url, fromPeer: peer, atTime: timestamp){ (name) ->Void in
+            let post : SMPost = SMPost(poster: peer, text: "", attachment: name, timestamp: timestamp)
+            completionHandler(post)
+        }
+    }
+}

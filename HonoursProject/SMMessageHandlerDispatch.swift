@@ -17,15 +17,15 @@ class SMMessageHandlerDispatch: NSObject {
         return Static.instance
     }
     
-    var handlers : Dictionary<String, SMMessageHandlerProtocol>
+    var handlers : [String: SMMessageHandlerProtocol]
     
     override init(){
-        handlers = Dictionary<String, SMMessageHandlerProtocol>()
+        handlers = [:]
         super.init()
         self.registerHandler(SMHeartbeatHandler())
         self.registerHandler(SMProfileHandler())
-        self.registerHandler(SMImageHandler())
         self.registerHandler(SMTextHandler())
+        self.registerHandler(SMTypingHandler())
     }
     
     func dispatch(message : SMMessage, forDelegate delegate: SMMessageHandlerDelegate){
