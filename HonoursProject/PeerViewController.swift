@@ -1,3 +1,4 @@
+
 //
 //  PeerViewController.swift
 //  HonoursProject
@@ -33,10 +34,10 @@ class PeerViewController: UIViewController, UITableViewDelegate, UITableViewData
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if(segue.identifier == "privateSessionSegue"){
-            var controller = segue.destinationViewController as PrivateSessionViewController
+            var controller = segue.destinationViewController as PrivateMessagingViewController
             let indexPath : NSIndexPath = self.tableView.indexPathForSelectedRow()!
             var peer : SMPeer = SMManager.shared.privatePeerList[indexPath.row]
-            controller.privateSession = SMManager.shared.privateSessions[peer]
+            controller.privateSession = SMManager.shared.privateSessions[peer]!
         }
     }
     
@@ -71,7 +72,7 @@ class PeerViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell : UITableViewCell = tableView.dequeueReusableCellWithIdentifier("SMPeerCell", forIndexPath: indexPath) as UITableViewCell
         var peer : SMPeer = SMManager.shared.privatePeerList[indexPath.row]
-        cell.textLabel?.text = peer.peerID.displayName
+        cell.textLabel?.text = peer.guid
         return cell
     }
     

@@ -8,8 +8,10 @@
 
 import UIKit
 
-class PrivateSessionViewController: JSQMessagesViewController, SMPrivateSessionDelagate, JSQMessagesCollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class PrivateMessagingViewController: JSQMessagesViewController, SMPrivateSessionDelagate, JSQMessagesCollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    @IBOutlet var navBar: UINavigationBar!
+    @IBOutlet var navTitle: UINavigationItem!
     
     var privateSession : SMPrivateSession!
     var bubbleImageFactory : JSQMessagesBubbleImageFactory?
@@ -17,9 +19,9 @@ class PrivateSessionViewController: JSQMessagesViewController, SMPrivateSessionD
     var incomingBubble : JSQMessagesBubbleImage?
     var picker:UIImagePickerController?
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
         privateSession.delegate = self
         bubbleImageFactory = JSQMessagesBubbleImageFactory()
@@ -27,6 +29,8 @@ class PrivateSessionViewController: JSQMessagesViewController, SMPrivateSessionD
         outgoingBubble = bubbleImageFactory?.outgoingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleOrangeColor())
         picker =  UIImagePickerController()
         picker?.delegate = self
+        navTitle.title = privateSession.connectedPeer?.peerID!.displayName ?? "No Name"
+        self.view.addSubview(navBar)
     }
     
     override func didReceiveMemoryWarning() {
@@ -44,9 +48,9 @@ class PrivateSessionViewController: JSQMessagesViewController, SMPrivateSessionD
         if(post.attachmentName != nil && post.attachmentName != ""){
             let image : UIImage = SMResourceManager.getImageForPost(post)
             let photoItem : JSQPhotoMediaItem = JSQPhotoMediaItem(image: image)
-            message = JSQMessage(senderId: post.poster.peerID.displayName, senderDisplayName: post.poster.peerID.displayName, date: post.timestamp, media: photoItem)
+            message = JSQMessage(senderId: post.poster.peerID!.displayName, senderDisplayName: post.poster.peerID!.displayName, date: post.timestamp, media: photoItem)
         } else{
-              message  = JSQMessage(senderId: post.poster.peerID.displayName, senderDisplayName: post.poster.peerID.displayName, date: post.timestamp, text: post.textContent)
+              message  = JSQMessage(senderId: post.poster.peerID!.displayName, senderDisplayName: post.poster.peerID!.displayName, date: post.timestamp, text: post.textContent)
         }
         return message
     }
@@ -54,11 +58,14 @@ class PrivateSessionViewController: JSQMessagesViewController, SMPrivateSessionD
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath) as JSQMessagesCollectionViewCell
         
-        let post : SMPost = privateSession.posts[indexPath.row]
-        if(post.poster.peerID.displayName == SMUser.shared.peerId.displayName){
-           cell.textView.textColor = UIColor.whiteColor()
-        } else{
-            cell.textView.textColor = UIColor.blackColor()
+    
+        if(cell.textView != nil){
+            let post : SMPost = privateSession.posts[indexPath.row]
+            if(post.poster.peerID!.displayName == SMUser.shared.peerId.displayName){
+               cell.textView.textColor = UIColor.whiteColor()
+            } else{
+                cell.textView.textColor = UIColor.blackColor()
+            }
         }
         
         return cell
@@ -66,7 +73,7 @@ class PrivateSessionViewController: JSQMessagesViewController, SMPrivateSessionD
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
         let post : SMPost = privateSession.posts[indexPath.row]
-        if(post.poster.peerID.displayName == SMUser.shared.peerId.displayName){
+        if(post.poster.peerID!.displayName == SMUser.shared.peerId.displayName){
             return outgoingBubble
         } else{
             return incomingBubble

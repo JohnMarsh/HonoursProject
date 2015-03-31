@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -113,23 +113,35 @@
             </objects>
             <point key="canvasLocation" x="750" y="360"/>
         </scene>
-        <!--Private Session View Controller-->
+        <!--Private Messaging View Controller-->
         <scene sceneID="u6e-aT-sst">
             <objects>
-                <viewController id="xbd-gA-mb9" customClass="PrivateSessionViewController" customModule="HonoursProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="xbd-gA-mb9" customClass="PrivateMessagingViewController" customModule="HonoursProject" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="IwQ-Zx-KuA"/>
-                        <viewControllerLayoutGuide type="bottom" id="Sef-Ow-Hl6"/>
+                        <viewControllerLayoutGuide type="top" id="Ml2-2i-06r"/>
+                        <viewControllerLayoutGuide type="bottom" id="cDb-1M-pvg"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="MSP-9F-IAt">
+                    <view key="view" contentMode="scaleToFill" id="07V-Mv-wZ4">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iBT-Bt-Nmo">
+                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Title" id="wcS-gp-lFr"/>
+                                </items>
+                            </navigationBar>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="navBar" destination="iBT-Bt-Nmo" id="okO-cp-07u"/>
+                        <outlet property="navTitle" destination="wcS-gp-lFr" id="rKJ-g4-xWk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a1W-A8-Mev" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1439" y="352"/>
+            <point key="canvasLocation" x="1457" y="493"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">

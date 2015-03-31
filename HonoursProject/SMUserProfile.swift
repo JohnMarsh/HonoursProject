@@ -7,14 +7,18 @@
 //
 
 import Foundation
+import CoreData
 
+@objc(SMUserProfile)
 class SMUserProfile : NSObject{
-    
-    var username : String
-    var userDescription : String
-    var imageUrl : String?
+  
+  @NSManaged  var guid : String
+  @NSManaged  var username : String
+  @NSManaged  var userDescription : String
+  @NSManaged  var imageUrl : String?
     
     override init(){
+        super.init()
         username = "";
         userDescription = "";
     }

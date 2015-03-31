@@ -7,13 +7,15 @@
 //
 
 import Foundation
+import CoreData
 
-class SMPost: NSObject {
+@objc(SMPost)
+class SMPost: NSManagedObject {
     
-    var poster : SMPeer!
-    var textContent : String?
-    var attachmentName : String?
-    var timestamp : NSDate!
+   @NSManaged var poster : SMPeer!
+   @NSManaged var textContent : String?
+   @NSManaged var attachmentName : String?
+   @NSManaged var timestamp : NSDate!
     
     
     convenience init(poster: SMPeer!, text: String?, attachment: String?, timestamp : NSDate!){

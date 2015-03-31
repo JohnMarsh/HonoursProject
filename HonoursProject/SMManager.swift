@@ -71,38 +71,78 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
     //MARK: SMManager Public Methods
     
     func start(){
-        self.timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: Selector("beginPublicBrowsing"), userInfo: nil, repeats: false)
-        privateAdvertiser.startAdvertisingPeer();
-        privateBrowser.startBrowsingForPeers();
-        self.beginPublicAdvertising()
+        self.timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: Selector("startPublicBrowsing"), userInfo: nil, repeats: false)
+        self.startPrivateAdvertising()
+        self.startPrivateBrowsing()
+        self.startPublicAdvertising()
     }
     
     //MARK: SMManager Private Methods
     
-    func beginPublicBrowsing(){
-        println("Started browsing for peers.")
-      //  self.stopPublicAdvertising()
-        publicBrowser.startBrowsingForPeers()
-        connectionDelegate?.startedBroswingForPeers()
+    func startPublicBrowsing(){
+        ~{
+            println("Started browsing for peers.")
+            self.publicBrowser.startBrowsingForPeers()
+         //   self.connectionDelegate?.startedBroswingForPeers()
+        }
     }
     
     private func stopPublicBrowsing(){
-        println("Stopped public browsing")
-        publicBrowser.stopBrowsingForPeers()
-        connectionDelegate?.stoppedBrowsingForPeers()
+        ~{
+            println("Stopped public browsing")
+            self.publicBrowser.stopBrowsingForPeers()
+         //   self.connectionDelegate?.stoppedBrowsingForPeers()
+        }
     }
     
-    private func beginPublicAdvertising(){
-        println("Started public advertising")
-        self.publicAdvertiser.startAdvertisingPeer()
-        connectionDelegate?.startedAdvertisingSelf()
+    private func startPublicAdvertising(){
+        ~{
+            println("Started public advertising")
+            self.publicAdvertiser.startAdvertisingPeer()
+            //self.connectionDelegate?.startedAdvertisingSelf()
+        }
     }
     
     private func stopPublicAdvertising(){
-        println("Stopped public advertising")
-        self.publicAdvertiser.startAdvertisingPeer()
-        connectionDelegate?.stoppedAdvertisingSelf()
+        ~{
+            println("Stopped public advertising")
+            self.publicAdvertiser.stopAdvertisingPeer()
+           // self.connectionDelegate?.stoppedAdvertisingSelf()
+        }
     }
+    
+    func startPrivateBrowsing(){
+        ~{
+            println("Started browsing for peers.")
+            self.privateBrowser.startBrowsingForPeers()
+           // self.connectionDelegate?.startedBroswingForPeers()
+        }
+    }
+    
+    private func stopPrivateBrowsing(){
+        ~{
+            println("Stopped public browsing")
+            self.privateBrowser.stopBrowsingForPeers()
+           // self.connectionDelegate?.stoppedBrowsingForPeers()
+        }
+    }
+    
+    private func startPrivateAdvertising(){
+        ~{
+            println("Started public advertising")
+            self.privateAdvertiser.startAdvertisingPeer()
+          //  self.connectionDelegate?.startedAdvertisingSelf()
+        }
+    }
+    
+    private func stopPrivateAdvertising(){
+        ~{
+            println("Stopped private advertising")
+            self.privateAdvertiser.stopAdvertisingPeer()
+          //  self.connectionDelegate?.stoppedAdvertisingSelf()
+        }
+    }
+
     
     
     //MARK: MCNearbyServiceAdvertiserDelegate Methods
@@ -125,13 +165,12 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
             invitationHandler(true, publicBoard.session)
             timer!.invalidate()
             //Now that we've joined a session we want to find other peers to join
-            self.beginPublicBrowsing()
+            self.startPublicBrowsing()
             break
         case privateAdvertiser:
             connectionDelegate?.didReceivePrivateInvitationFromPeer(privatePeerDict[peerID.displayName], invitationHandler: { (didAccept : Bool) -> Void in
                 if(didAccept){
                     let privateSession : SMPrivateSession = SMPrivateSession()
-                    privateSession.connectedPeer = peerID
                     privateSession.isActive = true
                     self.privateSessions[self.privatePeerDict[peerID.displayName]!] = privateSession
                     invitationHandler(true, privateSession.session)

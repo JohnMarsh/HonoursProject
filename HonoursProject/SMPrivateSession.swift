@@ -8,6 +8,7 @@
 
 import Foundation
 import MultipeerConnectivity
+import CoreData
 
 @objc protocol SMPrivateSessionDelagate{
     func receivedNewPost(post : SMPost)
@@ -21,19 +22,28 @@ import MultipeerConnectivity
 class SMPrivateSession: NSObject, MCSessionDelegate, SMMessageHandlerDelegate {
     
     var session : MCSession
-    var connectedPeer : MCPeerID?
-    var posts : [SMPost]
+   @NSManaged  var connectedPeer : SMPeer?
+   @NSManaged var posts : [SMPost]
     var timer : NSTimer?
-    var isActive : Bool
+   @NSManaged var active : NSNumber
     var delegate : SMPrivateSessionDelagate?
+    
+    var isActive: Bool {
+        get {
+            return Bool(active)
+        }
+        set {
+            active = NSNumber(bool: newValue)
+        }
+    }
     
     override init(){
         session = MCSession(peer: SMUser.shared.peerId)
-        posts = []
-        isActive = false
         super.init()
        // self.timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: Selector("sendHeartbeat"), userInfo: nil, repeats: true)
         session.delegate = self
+        posts = []
+        isActive = false
     }
    
    
@@ -123,7 +133,7 @@ class SMPrivateSession: NSObject, MCSessionDelegate, SMMessageHandlerDelegate {
             println("\(peerID) has connected to private session.")
             //user accepted invitation
             isActive = true
-            connectedPeer = peerID
+            connectedPeer = SMManager.shared.privatePeerDict[peerID.displayName]!
             delegate?.userHasConnected()
             break
         case MCSessionState.NotConnected:

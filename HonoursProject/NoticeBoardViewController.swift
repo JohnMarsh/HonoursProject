@@ -54,7 +54,7 @@ class NoticeBoardViewController: UIViewController, SMManagerConnectionDelegate, 
     
     
     func didReceivePrivateInvitationFromPeer(user : SMPeer!, invitationHandler: ((Bool) -> Void)!){
-        let alertController = UIAlertController(title: "Invitation Received", message: "\(user.peerID.displayName) woudl like to connect.", preferredStyle: .Alert)
+        let alertController = UIAlertController(title: "Invitation Received", message: "\(user.guid) woudl like to connect.", preferredStyle: .Alert)
         
         let inviteAction = UIAlertAction(title: "Accept", style: .Default) { (_) in
            invitationHandler(true)

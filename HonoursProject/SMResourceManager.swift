@@ -12,9 +12,9 @@ class SMResourceManager {
     
     class func saveResourceFromTempUrl(url : NSURL, fromPeer peer : SMPeer, atTime timestamp:NSDate, completionHandler: (String!)->Void!){
         ~{
-             var fullFileName : String
+            var fullFileName : String
             let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-            let fileName = "\(peer.peerID.displayName)+\(timestamp.timeIntervalSince1970)"
+            let fileName = "\(peer.guid)+\(timestamp.timeIntervalSince1970)"
             fullFileName  = documentsPath.stringByAppendingPathComponent(fileName)
             let data : NSData = NSData(contentsOfURL: url)!
             data.writeToFile(fullFileName, atomically: true)
@@ -24,7 +24,7 @@ class SMResourceManager {
     
     class func getImageForPost(post : SMPost) -> UIImage{
         let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-        let fileName = "\(post.poster.peerID.displayName)+\(post.timestamp.timeIntervalSince1970)"
+        let fileName = "\(post.poster.guid)+\(post.timestamp.timeIntervalSince1970)"
         let fullFileName : String = documentsPath.stringByAppendingPathComponent(fileName)
         let data : NSData = NSData(contentsOfFile: fullFileName)!
         let image : UIImage = UIImage(data: data)!
