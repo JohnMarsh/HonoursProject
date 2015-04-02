@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6751" systemVersion="14C1514" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="SMPeer" representedClassName="HonoursProject.SMPeer" syncable="YES">
+        <attribute name="alwaysConnect" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="blocked" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="guid" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="profile" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="SMUserProfile" inverseName="peer" inverseEntity="SMUserProfile" syncable="YES"/>
+    </entity>
+    <entity name="SMPost" representedClassName="HonoursProject.SMPost" syncable="YES">
+        <attribute name="attachmentName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="textContent" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="poster" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="SMPeer" syncable="YES"/>
+    </entity>
+    <entity name="SMPrivateSession" representedClassName="HonoursProject.SMPrivateSession" syncable="YES">
+        <attribute name="active" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="connectedPeer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SMPeer" syncable="YES"/>
+        <relationship name="posts" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="SMPost" syncable="YES"/>
+    </entity>
+    <entity name="SMUser" representedClassName="HonoursProject.SMUser" syncable="YES"/>
+    <entity name="SMUserProfile" representedClassName="HonoursProject.SMUserProfile" syncable="YES">
+        <attribute name="guid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="peer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SMPeer" inverseName="profile" inverseEntity="SMPeer" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="SMPeer" positionX="-236" positionY="27" width="128" height="103"/>
+        <element name="SMPost" positionX="-63" positionY="0" width="128" height="103"/>
+        <element name="SMUser" positionX="-225" positionY="54" width="128" height="43"/>
+        <element name="SMUserProfile" positionX="-423" positionY="-9" width="128" height="103"/>
+        <element name="SMPrivateSession" positionX="-243" positionY="45" width="128" height="88"/>
+    </elements>
+</model>

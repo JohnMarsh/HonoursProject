@@ -25,6 +25,7 @@ class SMResourceManager {
     class func getImageForPost(post : SMPost) -> UIImage{
         let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
         let fileName = "\(post.poster.guid)+\(post.timestamp.timeIntervalSince1970)"
+        println("getting file with filename \(fileName)")
         let fullFileName : String = documentsPath.stringByAppendingPathComponent(fileName)
         let data : NSData = NSData(contentsOfFile: fullFileName)!
         let image : UIImage = UIImage(data: data)!

@@ -43,14 +43,14 @@ class PrivateMessagingViewController: JSQMessagesViewController, SMPrivateSessio
     }
    
     override func collectionView(collectionView: JSQMessagesCollectionView!, messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
-        let post : SMPost = privateSession.posts[indexPath.row]
+        let post : SMPost = privateSession.posts.objectAtIndex(indexPath.row) as SMPost
         var message : JSQMessage
         if(post.attachmentName != nil && post.attachmentName != ""){
             let image : UIImage = SMResourceManager.getImageForPost(post)
             let photoItem : JSQPhotoMediaItem = JSQPhotoMediaItem(image: image)
             message = JSQMessage(senderId: post.poster.peerID!.displayName, senderDisplayName: post.poster.peerID!.displayName, date: post.timestamp, media: photoItem)
         } else{
-              message  = JSQMessage(senderId: post.poster.peerID!.displayName, senderDisplayName: post.poster.peerID!.displayName, date: post.timestamp, text: post.textContent)
+              message  = JSQMessage(senderId: post.poster.guid, senderDisplayName: post.poster.guid, date: post.timestamp, text: post.textContent)
         }
         return message
     }
@@ -60,8 +60,8 @@ class PrivateMessagingViewController: JSQMessagesViewController, SMPrivateSessio
         
     
         if(cell.textView != nil){
-            let post : SMPost = privateSession.posts[indexPath.row]
-            if(post.poster.peerID!.displayName == SMUser.shared.peerId.displayName){
+            let post : SMPost = privateSession.posts.objectAtIndex(indexPath.row) as SMPost
+            if(post.poster.guid == SMUser.shared.guid){
                cell.textView.textColor = UIColor.whiteColor()
             } else{
                 cell.textView.textColor = UIColor.blackColor()
@@ -72,8 +72,8 @@ class PrivateMessagingViewController: JSQMessagesViewController, SMPrivateSessio
     }
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
-        let post : SMPost = privateSession.posts[indexPath.row]
-        if(post.poster.peerID!.displayName == SMUser.shared.peerId.displayName){
+        let post : SMPost = privateSession.posts.objectAtIndex(indexPath.row) as SMPost
+        if(post.poster.guid == SMUser.shared.guid){
             return outgoingBubble
         } else{
             return incomingBubble

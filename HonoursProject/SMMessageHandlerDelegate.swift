@@ -13,4 +13,5 @@ import Foundation
     optional func peerDidStartTyping()
     optional func peerDidStopStyping()
     optional func didReceiveHeartbeat()
+    optional func didReceiveProfile()
 }

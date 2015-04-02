@@ -9,16 +9,15 @@
 import Foundation
 import CoreData
 
-@objc(SMUserProfile)
-class SMUserProfile : NSObject{
+
+class SMUserProfile : NSManagedObject{
   
   @NSManaged  var guid : String
   @NSManaged  var username : String
   @NSManaged  var userDescription : String
   @NSManaged  var imageUrl : String?
     
-    override init(){
-        super.init()
+    override func awakeFromInsert() {
         username = "";
         userDescription = "";
     }

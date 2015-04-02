@@ -10,14 +10,15 @@ import Foundation
 import MultipeerConnectivity
 import CoreData
 
-@objc(SMPeer)
+
 class SMPeer: NSManagedObject {
     
     var peerID : MCPeerID?
-    @NSManaged var guid : String!
+    @NSManaged var guid : NSString!
+    @NSManaged var username : NSString!
     @NSManaged var blocked : NSNumber
     @NSManaged var alwaysConnect : NSNumber
-    @NSManaged var profile : SMUserProfile
+    @NSManaged var profile : SMUserProfile?
     
     var isBlocked: Bool {
         get {
@@ -37,16 +38,10 @@ class SMPeer: NSManagedObject {
         }
     }
     
-    convenience init(peerID : MCPeerID!){
-        self.init()
-        self.peerID = peerID
-        self.guid = peerID.displayName;
-        self.isBlocked = false
-        self.isAlwaysConnect = false
-    }
-    
     override func awakeFromInsert() {
-        peerID = MCPeerID(displayName: guid)
+        isAlwaysConnect = false
+        isBlocked = false
+        profile = nil
     }
    
 }

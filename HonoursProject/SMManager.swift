@@ -45,8 +45,8 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
         self.privateSessions = [:]
         self.publicBrowser = MCNearbyServiceBrowser(peer: SMUser.shared.peerId, serviceType: publicServiceType)
         self.privateBrowser = MCNearbyServiceBrowser(peer: SMUser.shared.peerId, serviceType: privateServiceType)
-        self.publicAdvertiser = MCNearbyServiceAdvertiser(peer: SMUser.shared.peerId, discoveryInfo: SMUser.shared.discoveryInfo, serviceType: publicServiceType)
-        self.privateAdvertiser = MCNearbyServiceAdvertiser(peer: SMUser.shared.peerId, discoveryInfo: SMUser.shared.discoveryInfo, serviceType: privateServiceType)
+        self.publicAdvertiser = MCNearbyServiceAdvertiser(peer: SMUser.shared.peerId, discoveryInfo: nil, serviceType: publicServiceType)
+        self.privateAdvertiser = MCNearbyServiceAdvertiser(peer: SMUser.shared.peerId, discoveryInfo: nil, serviceType: privateServiceType)
         self.publicPeerDict = [:]
         self.publicPeerList = [SMPeer]()
         self.privatePeerDict = [:]
@@ -156,7 +156,7 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
             if let somePeer = publicPeerDict[peerID.displayName]{
                 //we already have this peer
             } else{
-                let smPeer : SMPeer = SMPeer(peerID: peerID)
+                let smPeer : SMPeer = SMPersistenceManager.createNewPeer(peerID)
                 publicPeerDict[peerID.displayName] = smPeer
                 publicPeerList = [SMPeer](publicPeerDict.values)
                 peerDeleagte?.foundNewPeer(smPeer)
@@ -170,8 +170,9 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
         case privateAdvertiser:
             connectionDelegate?.didReceivePrivateInvitationFromPeer(privatePeerDict[peerID.displayName], invitationHandler: { (didAccept : Bool) -> Void in
                 if(didAccept){
-                    let privateSession : SMPrivateSession = SMPrivateSession()
+                    let privateSession : SMPrivateSession = SMPersistenceManager.createNewPrivateSessionWithPeer(self.privatePeerDict[peerID.displayName]!)
                     privateSession.isActive = true
+                    privateSession.connectedPeer = self.privatePeerDict[peerID.displayName]
                     self.privateSessions[self.privatePeerDict[peerID.displayName]!] = privateSession
                     invitationHandler(true, privateSession.session)
                 }else{
@@ -203,7 +204,8 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
             if let somePeer = publicPeerDict[peerID.displayName]{
                 //we already have this peer
             } else{
-                let smPeer : SMPeer = SMPeer(peerID: peerID)
+                let smPeer : SMPeer =  SMPersistenceManager.createNewPeer(peerID)
+                println("adding public peer with display name \(peerID.displayName) and guid \(smPeer.guid)")
                 publicPeerDict[peerID.displayName] = smPeer
                 publicPeerList = [SMPeer](publicPeerDict.values)
             }
@@ -215,7 +217,8 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
             if let somePeer = privatePeerDict[peerID.displayName]{
                 //we already have this peer
             } else{
-                let smPeer : SMPeer = SMPeer(peerID: peerID)
+                let smPeer : SMPeer =  SMPersistenceManager.createNewPeer(peerID)
+                println("adding private peer with display name \(peerID.displayName) and guid \(smPeer.guid)")
                 privatePeerDict[peerID.displayName] = smPeer
                 privatePeerList = [SMPeer](privatePeerDict.values)
                 peerDeleagte?.foundNewPeer(smPeer)
@@ -233,9 +236,9 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
         case publicBrowser:
             println("lost public peer : \(peerID.displayName).")
             if let somePeer = publicPeerDict[peerID.displayName]{
-                peerDeleagte?.lostPeer(somePeer)
                 publicPeerDict[peerID.displayName] = nil
                 publicPeerList = [SMPeer](publicPeerDict.values)
+                peerDeleagte?.lostPeer(somePeer)
             } else{
                 //we did not have this peer in our list anyways
             }
@@ -243,9 +246,9 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
         case privateBrowser:
             println("lost private peer : \(peerID.displayName).")
             if let somePeer = privatePeerDict[peerID.displayName]{
-                peerDeleagte?.lostPeer(somePeer)
                 privatePeerDict[peerID.displayName] = nil
                 privatePeerList = [SMPeer](privatePeerDict.values)
+                peerDeleagte?.lostPeer(somePeer)
             } else{
                 //we did not have this peer in our list anyways
             }
@@ -265,8 +268,10 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
     }
     
     func invitePeerToPrivateSession(peer : SMPeer){
-        let privateSession : SMPrivateSession = SMPrivateSession()
+        let privateSession : SMPrivateSession = SMPersistenceManager.createNewPrivateSessionWithPeer(peer)
         privateSessions[peer] = privateSession
+        privateSession.connectedPeer = peer
+        privateSession.isActive = true
         privateBrowser.invitePeer(peer.peerID, toSession: privateSession.session, withContext: nil, timeout: 60)
     }
 

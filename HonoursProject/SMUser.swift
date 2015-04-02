@@ -10,38 +10,42 @@ import Foundation
 import MultipeerConnectivity
 import CoreData
 
-@objc(SMUser)
-class SMUser: NSObject {
+
+class SMUser: NSManagedObject {
     
-    var peerId : MCPeerID
-    let peer : SMPeer
+   @NSManaged var peerId : MCPeerID?
+   @NSManaged var peer : SMPeer
    @NSManaged var guid : String
-    var discoveryInfo : NSMutableDictionary
    @NSManaged var profile : SMUserProfile
     
     class var shared : SMUser {
         
         struct Static {
-            static let instance : SMUser = SMUser()
+            static let instance : SMUser = SMPersistenceManager.createNewUser()
         }
         
         return Static.instance
     }
     
-    override init() {
-        peerId = MCPeerID(displayName: UIDevice.currentDevice().identifierForVendor.UUIDString)
-        peer = SMPeer(peerID: peerId)
-        discoveryInfo = NSMutableDictionary()
-        super.init()
+    
+    override func awakeFromInsert() {
         guid = UIDevice.currentDevice().identifierForVendor.UUIDString
-        profile = SMUserProfile()
+        peerId = MCPeerID(displayName: guid)
+        peer = SMPersistenceManager.createNewPeer(peerId!)
+        profile = SMPersistenceManager.createNewProfile()
         peer.profile = profile
     }
+    
+    override func awakeFromFetch() {
+        peerId = MCPeerID(displayName: guid)
+        println("fecthing user with peer \(peer.guid)")
+    }
+    
     
     func buildProfileMessage() -> SMMessage{
         var msg = SMMessage()
         msg.messageType = SMMessageType.Profile
-        msg.sender = peerId.displayName
+        msg.sender = peerId!.displayName
         msg.addValue(profile.username ?? UIDevice.currentDevice().name, forKey: "username")
         msg.addValue(profile.userDescription ?? "", forKey: "userDescription")
         return msg

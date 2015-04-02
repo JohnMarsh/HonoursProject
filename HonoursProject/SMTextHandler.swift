@@ -20,7 +20,10 @@ class SMTextHandler: SMMessageHandlerProtocol {
         let text : String? = message.content.objectForKey("text") as? String
         let time : NSDate = message.timestamp
         let peer : SMPeer = SMManager.shared.publicPeerDict[message.sender] ?? SMManager.shared.privatePeerDict[message.sender]!
-        let post : SMPost = SMPost(poster: peer, text: text, attachment: nil, timestamp: time)
+        let post : SMPost = SMPersistenceManager.createNewPost()
+        post.textContent = text
+        post.timestamp = time
+        post.poster = peer
         delegate.didReceivePost(post)
     }
     
@@ -28,7 +31,10 @@ class SMTextHandler: SMMessageHandlerProtocol {
         let text : String? = message.content.objectForKey("text") as? String
         let time : NSDate = message.timestamp
         let peer : SMPeer = SMUser.shared.peer
-        let post : SMPost = SMPost(poster: peer, text: text, attachment: nil, timestamp: time)
+        let post : SMPost = SMPersistenceManager.createNewPost()
+        post.textContent = text
+        post.timestamp = time
+        post.poster = peer
         return post
     }
 }

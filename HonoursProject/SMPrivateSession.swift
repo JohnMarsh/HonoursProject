@@ -19,11 +19,11 @@ import CoreData
     optional func didReceiveHeartbeat()
 }
 
-class SMPrivateSession: NSObject, MCSessionDelegate, SMMessageHandlerDelegate {
+class SMPrivateSession: NSManagedObject, MCSessionDelegate, SMMessageHandlerDelegate {
     
-    var session : MCSession
+   @NSManaged var session : MCSession?
    @NSManaged  var connectedPeer : SMPeer?
-   @NSManaged var posts : [SMPost]
+   @NSManaged var posts : NSMutableOrderedSet
     var timer : NSTimer?
    @NSManaged var active : NSNumber
     var delegate : SMPrivateSessionDelagate?
@@ -37,13 +37,16 @@ class SMPrivateSession: NSObject, MCSessionDelegate, SMMessageHandlerDelegate {
         }
     }
     
-    override init(){
+    
+    override func awakeFromInsert() {
         session = MCSession(peer: SMUser.shared.peerId)
-        super.init()
-       // self.timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: Selector("sendHeartbeat"), userInfo: nil, repeats: true)
-        session.delegate = self
-        posts = []
+        session!.delegate = self
+        posts = NSMutableOrderedSet()
         isActive = false
+    }
+    
+    override func awakeFromFetch() {
+        session = MCSession(peer: SMUser.shared.peerId)
     }
    
    
@@ -52,12 +55,13 @@ class SMPrivateSession: NSObject, MCSessionDelegate, SMMessageHandlerDelegate {
     func sendTextToPeer(text : String){
         var error : NSErrorPointer = NSErrorPointer()
         let message : SMMessage = SMMessageFactory.createTextMessageWithString(text)
-        posts.append(SMTextHandler.createSelfTextPost(message))
-        session.sendData(message.messageToJSONData(), toPeers: session.connectedPeers, withMode:  MCSessionSendDataMode.Reliable, error: error)
+        posts.addObject(SMTextHandler.createSelfTextPost(message))
+        session!.sendData(message.messageToJSONData(), toPeers: session!.connectedPeers, withMode:  MCSessionSendDataMode.Reliable, error: error)
+        SMPersistenceManager.saveContext()
     }
     
-    func sendResourceAtUrl(url : NSURL){
-        session.sendResourceAtURL(url, withName: url.absoluteString, toPeer: session.connectedPeers[0] as MCPeerID, withCompletionHandler:  {(error : NSError!) -> Void in
+    func sendResourceAtUrl(url : NSURL, completionHandler: ()->Void!){
+        session!.sendResourceAtURL(url, withName: url.absoluteString, toPeer: session!.connectedPeers[0] as MCPeerID, withCompletionHandler:  {(error : NSError!) -> Void in
             if(error != nil){
                 println("Resource failed to send with error: \(error).")
                 
@@ -65,11 +69,7 @@ class SMPrivateSession: NSObject, MCSessionDelegate, SMMessageHandlerDelegate {
                 println("Resource sent with no errors.")
                 SMResourceManager.deleteTempPicture()
             }
-            var error : NSErrorPointer = NSErrorPointer()
-            NSFileManager.defaultManager().removeItemAtURL(url, error: error)
-            if(error != nil){
-                println("Failed to delete image with error: \(error.debugDescription)")
-            }
+            completionHandler()
         })
     }
 
@@ -77,36 +77,45 @@ class SMPrivateSession: NSObject, MCSessionDelegate, SMMessageHandlerDelegate {
         ~{
             var newUrl : NSURL
             let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-            let fileName = "temp-\(NSDate().timeIntervalSince1970).jpeg"
+            let date = NSDate()
+            let fileName = "\(SMUser.shared.guid)+\(date.timeIntervalSince1970)"
             let fullFileName  = documentsPath.stringByAppendingPathComponent(fileName)
+            println("saving and sending file with filename \(fileName)")
             let data : NSData = UIImageJPEGRepresentation(image, 1.0)
             data.writeToFile(fullFileName, atomically: true)
             newUrl = NSURL(fileURLWithPath: fullFileName)!
-            self.sendResourceAtUrl(newUrl)
+            self.sendResourceAtUrl(newUrl){
+                SMImageHandler.createSelfImagePost(date, url: newUrl){  (post)->Void in
+                    self.posts.addObject(post)
+                    self.delegate?.receivedNewPost(post)
+                    SMPersistenceManager.saveContext()
+                }
+            }
         }
         
     }
     
     func sendHeartbeat(){
         var error : NSErrorPointer = NSErrorPointer()
-        session.sendData(SMMessageFactory.createHeartBeatMessage().messageToJSONData(), toPeers: session.connectedPeers, withMode:  MCSessionSendDataMode.Reliable, error: error)
+        session!.sendData(SMMessageFactory.createHeartBeatMessage().messageToJSONData(), toPeers: session!.connectedPeers, withMode:  MCSessionSendDataMode.Reliable, error: error)
     }
     
     func userDidStartTyping(){
         var error : NSErrorPointer = NSErrorPointer()
-        session.sendData(SMMessageFactory.createTypingDidStartMessage().messageToJSONData(), toPeers: session.connectedPeers, withMode:  MCSessionSendDataMode.Reliable, error: error)
+        session!.sendData(SMMessageFactory.createTypingDidStartMessage().messageToJSONData(), toPeers: session!.connectedPeers, withMode:  MCSessionSendDataMode.Reliable, error: error)
     }
     
     func userDidStopTyping(){
         var error : NSErrorPointer = NSErrorPointer()
-        session.sendData(SMMessageFactory.createTypingDidStopMessage().messageToJSONData(), toPeers: session.connectedPeers, withMode:  MCSessionSendDataMode.Reliable, error: error)
+        session!.sendData(SMMessageFactory.createTypingDidStopMessage().messageToJSONData(), toPeers: session!.connectedPeers, withMode:  MCSessionSendDataMode.Reliable, error: error)
     }
     
     //MARK: SMMessageHandlerDelegate
     
     func didReceivePost(post: SMPost) {
-        posts.append(post);
+        posts.addObject(post);
         delegate?.receivedNewPost(post)
+        SMPersistenceManager.saveContext()
     }
     
     func didReceiveHeartbeat() {
@@ -135,12 +144,14 @@ class SMPrivateSession: NSObject, MCSessionDelegate, SMMessageHandlerDelegate {
             isActive = true
             connectedPeer = SMManager.shared.privatePeerDict[peerID.displayName]!
             delegate?.userHasConnected()
+            SMPersistenceManager.saveContext()
             break
         case MCSessionState.NotConnected:
             println("\(peerID) is not connected to private session.")
             //user chose not to connect or did not respond to invitation in time
             isActive = false;
             delegate?.userHasDisconnected()
+            SMPersistenceManager.saveContext()
         default:
             break
         }
@@ -167,8 +178,9 @@ class SMPrivateSession: NSObject, MCSessionDelegate, SMMessageHandlerDelegate {
         let peer : SMPeer = SMManager.shared.privatePeerDict[peerID.displayName]!
         let timestamp : NSDate = NSDate()
         SMImageHandler.handleImageAndReturnPost(peer, timestamp: timestamp, url: localURL){ (post)->Void in
-            self.posts.append(post)
+            self.posts.addObject(post)
             self.delegate?.receivedNewPost(post)
+            SMPersistenceManager.saveContext()
         }
     }
 }

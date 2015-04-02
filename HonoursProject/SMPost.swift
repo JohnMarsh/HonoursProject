@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-@objc(SMPost)
 class SMPost: NSManagedObject {
     
    @NSManaged var poster : SMPeer!
