@@ -15,6 +15,8 @@ class SMPost: NSManagedObject {
    @NSManaged var textContent : String?
    @NSManaged var attachmentName : String?
    @NSManaged var timestamp : NSDate!
+   @NSManaged var session : SMPrivateSession?
+    
     
     
     convenience init(poster: SMPeer!, text: String?, attachment: String?, timestamp : NSDate!){

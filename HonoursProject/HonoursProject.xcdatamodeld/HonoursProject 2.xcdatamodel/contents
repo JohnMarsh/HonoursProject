@@ -11,12 +11,13 @@
         <attribute name="textContent" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
         <relationship name="poster" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="SMPeer" syncable="YES"/>
+        <relationship name="session" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SMPrivateSession" inverseName="posts" inverseEntity="SMPrivateSession" syncable="YES"/>
     </entity>
     <entity name="SMPrivateSession" representedClassName="HonoursProject.SMPrivateSession" syncable="YES">
         <attribute name="active" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="session" optional="YES" transient="YES" syncable="YES"/>
         <relationship name="connectedPeer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SMPeer" syncable="YES"/>
-        <relationship name="posts" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="SMPost" syncable="YES"/>
+        <relationship name="posts" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="SMPost" inverseName="session" inverseEntity="SMPost" syncable="YES"/>
     </entity>
     <entity name="SMUser" representedClassName="HonoursProject.SMUser" syncable="YES">
         <attribute name="guid" optional="YES" attributeType="String" syncable="YES"/>
@@ -32,7 +33,7 @@
     </entity>
     <elements>
         <element name="SMPeer" positionX="-236" positionY="27" width="128" height="105"/>
-        <element name="SMPost" positionX="-63" positionY="0" width="128" height="30"/>
+        <element name="SMPost" positionX="-63" positionY="0" width="128" height="118"/>
         <element name="SMPrivateSession" positionX="-243" positionY="45" width="128" height="103"/>
         <element name="SMUser" positionX="-225" positionY="54" width="128" height="103"/>
         <element name="SMUserProfile" positionX="-423" positionY="-9" width="128" height="103"/>

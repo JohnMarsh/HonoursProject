@@ -48,7 +48,7 @@ class PrivateMessagingViewController: JSQMessagesViewController, SMPrivateSessio
         if(post.attachmentName != nil && post.attachmentName != ""){
             let image : UIImage = SMResourceManager.getImageForPost(post)
             let photoItem : JSQPhotoMediaItem = JSQPhotoMediaItem(image: image)
-            message = JSQMessage(senderId: post.poster.peerID!.displayName, senderDisplayName: post.poster.peerID!.displayName, date: post.timestamp, media: photoItem)
+            message = JSQMessage(senderId: post.poster.guid, senderDisplayName: post.poster.guid, date: post.timestamp, media: photoItem)
         } else{
               message  = JSQMessage(senderId: post.poster.guid, senderDisplayName: post.poster.guid, date: post.timestamp, text: post.textContent)
         }

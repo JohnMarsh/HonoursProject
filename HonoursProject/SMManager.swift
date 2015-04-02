@@ -269,6 +269,7 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
     
     func invitePeerToPrivateSession(peer : SMPeer){
         let privateSession : SMPrivateSession = SMPersistenceManager.createNewPrivateSessionWithPeer(peer)
+        println("private session with connectedPeer \(privateSession.connectedPeer?.guid)")
         privateSessions[peer] = privateSession
         privateSession.connectedPeer = peer
         privateSession.isActive = true

@@ -47,6 +47,7 @@ class SMPrivateSession: NSManagedObject, MCSessionDelegate, SMMessageHandlerDele
     
     override func awakeFromFetch() {
         session = MCSession(peer: SMUser.shared.peerId)
+        session!.delegate = self
     }
    
    
@@ -55,9 +56,11 @@ class SMPrivateSession: NSManagedObject, MCSessionDelegate, SMMessageHandlerDele
     func sendTextToPeer(text : String){
         var error : NSErrorPointer = NSErrorPointer()
         let message : SMMessage = SMMessageFactory.createTextMessageWithString(text)
-        posts.addObject(SMTextHandler.createSelfTextPost(message))
-        session!.sendData(message.messageToJSONData(), toPeers: session!.connectedPeers, withMode:  MCSessionSendDataMode.Reliable, error: error)
+        let post = SMTextHandler.createSelfTextPost(message)
+        post.session = self
+        posts.addObject(post)
         SMPersistenceManager.saveContext()
+        session!.sendData(message.messageToJSONData(), toPeers: session!.connectedPeers, withMode:  MCSessionSendDataMode.Reliable, error: error)
     }
     
     func sendResourceAtUrl(url : NSURL, completionHandler: ()->Void!){
@@ -88,6 +91,7 @@ class SMPrivateSession: NSManagedObject, MCSessionDelegate, SMMessageHandlerDele
                 SMImageHandler.createSelfImagePost(date, url: newUrl){  (post)->Void in
                     self.posts.addObject(post)
                     self.delegate?.receivedNewPost(post)
+                    post.session = self
                     SMPersistenceManager.saveContext()
                 }
             }
@@ -115,6 +119,7 @@ class SMPrivateSession: NSManagedObject, MCSessionDelegate, SMMessageHandlerDele
     func didReceivePost(post: SMPost) {
         posts.addObject(post);
         delegate?.receivedNewPost(post)
+        post.session = self
         SMPersistenceManager.saveContext()
     }
     
