@@ -10,7 +10,6 @@ import Foundation
 import MultipeerConnectivity
 
 protocol SMManagerConnectionDelegate{
-    func didReceivePrivateInvitationFromPeer(user : SMPeer!, invitationHandler: ((Bool) -> Void)!)
     func startedAdvertisingSelf()
     func stoppedAdvertisingSelf()
     func startedBroswingForPeers()
@@ -20,6 +19,7 @@ protocol SMManagerConnectionDelegate{
 protocol SMManagerPeerDelegate{
     func foundNewPeer(peer : SMPeer)
     func lostPeer(peer : SMPeer)
+    func didReceivePrivateInvitationFromPeer(user : SMPeer!, invitationHandler: ((Bool) -> Void)!)
 }
 
 class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvertiserDelegate {
@@ -168,7 +168,7 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
             self.startPublicBrowsing()
             break
         case privateAdvertiser:
-            connectionDelegate?.didReceivePrivateInvitationFromPeer(privatePeerDict[peerID.displayName], invitationHandler: { (didAccept : Bool) -> Void in
+            peerDeleagte?.didReceivePrivateInvitationFromPeer(privatePeerDict[peerID.displayName], invitationHandler: { (didAccept : Bool) -> Void in
                 if(didAccept){
                     let privateSession : SMPrivateSession = SMPersistenceManager.createNewPrivateSessionWithPeer(self.privatePeerDict[peerID.displayName]!)
                     privateSession.isActive = true

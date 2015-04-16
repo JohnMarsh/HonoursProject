@@ -32,14 +32,14 @@ class SMMessage: NSObject {
     convenience init(fromJSONData data: NSData!){
         var msg : SMMessage = SMMessage()
         var error : NSError?
-        let msgDic = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.allZeros, error: &error) as NSDictionary
+        let msgDic = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.allZeros, error: &error) as! NSDictionary
         
         self.init()
         
-        self.messageType = SMMessageType(rawValue:msgDic.objectForKey("messageType") as String)
-        self.sender = msgDic.objectForKey("sender") as String
-        self.timestamp = NSDate(timeIntervalSince1970: msgDic.objectForKey("timestamp") as Double)
-        self.content = msgDic.objectForKey("content") as NSMutableDictionary
+        self.messageType = SMMessageType(rawValue:msgDic.objectForKey("messageType") as! String)
+        self.sender = msgDic.objectForKey("sender")as! String
+        self.timestamp = NSDate(timeIntervalSince1970: msgDic.objectForKey("timestamp")as! Double)
+        self.content = msgDic.objectForKey("content") as! NSMutableDictionary
     }
     
     func addValue(value : String, forKey key: String){

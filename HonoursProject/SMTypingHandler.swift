@@ -17,7 +17,7 @@ class SMTypingHandler: SMMessageHandlerProtocol {
     
     func handleMessage(message: SMMessage, forDelegate delegate : SMMessageHandlerDelegate) {
         println("Handling Typing")
-        var isTyping : String =  message.content.objectForKey("isTyping") as String
+        var isTyping : String =  message.content.objectForKey("isTyping") as! String
         if(isTyping == "true"){
             delegate.peerDidStartTyping!()
         }else{

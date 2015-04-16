@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PrivateMessagingViewController: JSQMessagesViewController, SMPrivateSessionDelagate, JSQMessagesCollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class PrivateMessagingViewController: JSQMessagesViewController, SMPrivateSessionDelagate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet var navBar: UINavigationBar!
     @IBOutlet var navTitle: UINavigationItem!
@@ -31,6 +31,7 @@ class PrivateMessagingViewController: JSQMessagesViewController, SMPrivateSessio
         picker?.delegate = self
         navTitle.title = privateSession.connectedPeer?.peerID!.displayName ?? "No Name"
         self.view.addSubview(navBar)
+        self.senderId = SMUser.shared.guid;
     }
     
     override func didReceiveMemoryWarning() {
@@ -43,24 +44,29 @@ class PrivateMessagingViewController: JSQMessagesViewController, SMPrivateSessio
     }
    
     override func collectionView(collectionView: JSQMessagesCollectionView!, messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
-        let post : SMPost = privateSession.posts.objectAtIndex(indexPath.row) as SMPost
+        let post : SMPost = privateSession.posts.objectAtIndex(indexPath.row) as! SMPost
         var message : JSQMessage
         if(post.attachmentName != nil && post.attachmentName != ""){
             let image : UIImage = SMResourceManager.getImageForPost(post)
             let photoItem : JSQPhotoMediaItem = JSQPhotoMediaItem(image: image)
-            message = JSQMessage(senderId: post.poster.guid, senderDisplayName: post.poster.guid, date: post.timestamp, media: photoItem)
+            if(post.poster.guid == SMUser.shared.guid){
+                photoItem.appliesMediaViewMaskAsOutgoing = true;
+            }
+            message = JSQMessage(senderId: post.poster.guid as String, senderDisplayName: post.poster.guid! as String, date: post.timestamp, media: photoItem)
         } else{
-              message  = JSQMessage(senderId: post.poster.guid, senderDisplayName: post.poster.guid, date: post.timestamp, text: post.textContent)
+              message  = JSQMessage(senderId: post.poster.guid as String, senderDisplayName: post.poster.guid as String, date: post.timestamp, text: post.textContent)
         }
         return message
     }
     
+    
+    
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath) as JSQMessagesCollectionViewCell
+        let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath) as! JSQMessagesCollectionViewCell
         
     
         if(cell.textView != nil){
-            let post : SMPost = privateSession.posts.objectAtIndex(indexPath.row) as SMPost
+            let post : SMPost = privateSession.posts.objectAtIndex(indexPath.row) as! SMPost
             if(post.poster.guid == SMUser.shared.guid){
                cell.textView.textColor = UIColor.whiteColor()
             } else{
@@ -71,8 +77,9 @@ class PrivateMessagingViewController: JSQMessagesViewController, SMPrivateSessio
         return cell
     }
     
+    
     override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
-        let post : SMPost = privateSession.posts.objectAtIndex(indexPath.row) as SMPost
+        let post : SMPost = privateSession.posts.objectAtIndex(indexPath.row) as! SMPost
         if(post.poster.guid == SMUser.shared.guid){
             return outgoingBubble
         } else{
@@ -83,15 +90,8 @@ class PrivateMessagingViewController: JSQMessagesViewController, SMPrivateSessio
     override func collectionView(collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
         return nil
     }
-    
-    func senderDisplayName() -> String! {
-       return SMUser.shared.profile.username
-    }
-    
-    func senderId() -> String! {
-       return  SMUser.shared.guid
-    }
-    
+ 
+
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
         privateSession.sendTextToPeer(text)
         finishSendingMessage()
@@ -140,17 +140,17 @@ class PrivateMessagingViewController: JSQMessagesViewController, SMPrivateSessio
         self.presentViewController(picker!, animated: true, completion: nil)
     }
     
-    func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]!)
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject])
     {
         picker .dismissViewControllerAnimated(true, completion: nil)
        // let url : NSURL = info[UIImagePickerControllerReferenceURL] as NSURL
-        let image : UIImage = info[UIImagePickerControllerOriginalImage] as UIImage
+        let image : UIImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         privateSession.sendImageToPeer(image)
        // privateSession.sendResourceAtUrl(url)
         //sets the selected image to image view
         
     }
-    func imagePickerControllerDidCancel(picker: UIImagePickerController!)
+    func imagePickerControllerDidCancel(picker: UIImagePickerController)
     {
         println("picker cancel.")
     }
@@ -163,11 +163,11 @@ class PrivateMessagingViewController: JSQMessagesViewController, SMPrivateSessio
         }
     }
     
-    func userHasConnected() {
+    func peerHasConnected() {
         
     }
     
-    func userHasDisconnected() {
+    func peerHasDisconnected() {
         
     }
     
@@ -195,6 +195,8 @@ class PrivateMessagingViewController: JSQMessagesViewController, SMPrivateSessio
             self.scrollToBottomAnimated(true)
         }
     }
+    
+
     
     /*
     // MARK: - Navigation

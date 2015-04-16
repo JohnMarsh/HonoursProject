@@ -16,7 +16,7 @@ class SMProfileHandler: SMMessageHandlerProtocol {
     
     func handleMessage(message: SMMessage, forDelegate delegate : SMMessageHandlerDelegate) {
         let peer : SMPeer = SMManager.shared.publicPeerDict[message.sender] ?? SMManager.shared.privatePeerDict[message.sender]!
-        peer.profile?.username =  message.content.objectForKey("username") as String
+        peer.profile?.username =  message.content.objectForKey("username") as! String
        //delegate.didReceiveProfile!()
     }
 }

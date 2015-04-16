@@ -14,7 +14,7 @@ class SMImageHandler {
         return   SMMessageType.Image.rawValue
     }
     
-    class func handleImageAndReturnPost(peer : SMPeer, timestamp : NSDate, url : NSURL, completionHandler: (SMPost!)->Void!) {
+    class func handleImageAndReturnPost(peer : SMPeer, timestamp : NSDate, url : NSURL, completionHandler: (SMPost!)->Void) {
         SMResourceManager.saveResourceFromTempUrl(url, fromPeer: peer, atTime: timestamp){ (name) ->Void in
             let post : SMPost = SMPersistenceManager.createNewPost()
             post.timestamp = timestamp
@@ -24,7 +24,7 @@ class SMImageHandler {
         }
     }
     
-    class func createSelfImagePost(timestamp : NSDate,url : NSURL, completionHandler: (SMPost!)->Void!) {
+    class func createSelfImagePost(timestamp : NSDate,url : NSURL, completionHandler: (SMPost!)->Void) {
             let post : SMPost = SMPersistenceManager.createNewPost()
             post.timestamp = timestamp
             post.poster = SMUser.shared.peer

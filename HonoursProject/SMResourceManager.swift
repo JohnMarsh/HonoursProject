@@ -10,10 +10,10 @@ import Foundation
 
 class SMResourceManager {
     
-    class func saveResourceFromTempUrl(url : NSURL, fromPeer peer : SMPeer, atTime timestamp:NSDate, completionHandler: (String!)->Void!){
+    class func saveResourceFromTempUrl(url : NSURL, fromPeer peer : SMPeer, atTime timestamp:NSDate, completionHandler: (String!)->Void){
         ~{
             var fullFileName : String
-            let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+            let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
             let fileName = "\(peer.guid)+\(timestamp.timeIntervalSince1970)"
             fullFileName  = documentsPath.stringByAppendingPathComponent(fileName)
             let data : NSData = NSData(contentsOfURL: url)!
@@ -23,7 +23,7 @@ class SMResourceManager {
     }
     
     class func getImageForPost(post : SMPost) -> UIImage{
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
         let fileName = "\(post.poster.guid)+\(post.timestamp.timeIntervalSince1970)"
         println("getting file with filename \(fileName)")
         let fullFileName : String = documentsPath.stringByAppendingPathComponent(fileName)
@@ -36,7 +36,7 @@ class SMResourceManager {
         ~{
             SMResourceManager.deleteTempPicture()
             var newUrl : NSURL
-            let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+            let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
             let fileName = "temp.jpeg"
             let fullFileName  = documentsPath.stringByAppendingPathComponent(fileName)
             let data : NSData = UIImageJPEGRepresentation(image, 1.0)
@@ -48,7 +48,7 @@ class SMResourceManager {
     
     class func deleteTempPicture(){
         ~{
-            let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+            let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
             let fileName = "temp.jpeg"
             let fullFileName  = documentsPath.stringByAppendingPathComponent(fileName)
             var error : NSErrorPointer = NSErrorPointer()

@@ -36,7 +36,7 @@ class NoticeBoardViewController: UIViewController, SMManagerConnectionDelegate, 
     @IBAction func didPressPost(sender: AnyObject) {
         let alertController = UIAlertController(title: "Create Post", message: "", preferredStyle: .Alert)
         let postAction = UIAlertAction(title: "Post", style: .Default) { (_) in
-            let postTextField = alertController.textFields![0] as UITextField
+            let postTextField = alertController.textFields![0] as! UITextField
             self.board.postTextToBoard(postTextField.text)
         }
         
@@ -53,22 +53,7 @@ class NoticeBoardViewController: UIViewController, SMManagerConnectionDelegate, 
     }
     
     
-    func didReceivePrivateInvitationFromPeer(user : SMPeer!, invitationHandler: ((Bool) -> Void)!){
-        let alertController = UIAlertController(title: "Invitation Received", message: "\(user.guid) woudl like to connect.", preferredStyle: .Alert)
-        
-        let inviteAction = UIAlertAction(title: "Accept", style: .Default) { (_) in
-           invitationHandler(true)
-        }
-        
-        let cancelAction = UIAlertAction(title: "Decline", style: .Default) { (_) in
-            invitationHandler(false)
-        }
-        
-        alertController.addAction(inviteAction)
-        alertController.addAction(cancelAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
  
-    }
     
     func startedAdvertisingSelf(){
         
@@ -88,9 +73,9 @@ class NoticeBoardViewController: UIViewController, SMManagerConnectionDelegate, 
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell : UITableViewCell = tableView.dequeueReusableCellWithIdentifier("SMPostText", forIndexPath: indexPath) as UITableViewCell
+        var cell : UITableViewCell = tableView.dequeueReusableCellWithIdentifier("SMPostText", forIndexPath: indexPath) as! UITableViewCell
         var post = board.posts[indexPath.row] as SMPost
-        cell.textLabel?.text = post.textContent
+        cell.textLabel!.text = post.textContent
         return cell
     }
     

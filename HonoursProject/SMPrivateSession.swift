@@ -12,11 +12,10 @@ import CoreData
 
 @objc protocol SMPrivateSessionDelagate{
     func receivedNewPost(post : SMPost)
-    func userHasConnected()
-    func userHasDisconnected()
+    func peerHasConnected()
+    func peerHasDisconnected()
     func peerDidStartTyping()
     func peerDidStopTyping()
-    optional func didReceiveHeartbeat()
 }
 
 class SMPrivateSession: NSManagedObject, MCSessionDelegate, SMMessageHandlerDelegate {
@@ -64,7 +63,7 @@ class SMPrivateSession: NSManagedObject, MCSessionDelegate, SMMessageHandlerDele
     }
     
     func sendResourceAtUrl(url : NSURL, completionHandler: ()->Void!){
-        session!.sendResourceAtURL(url, withName: url.absoluteString, toPeer: session!.connectedPeers[0] as MCPeerID, withCompletionHandler:  {(error : NSError!) -> Void in
+        session!.sendResourceAtURL(url, withName: url.absoluteString, toPeer: session!.connectedPeers[0] as! MCPeerID, withCompletionHandler:  {(error : NSError!) -> Void in
             if(error != nil){
                 println("Resource failed to send with error: \(error).")
                 
@@ -79,7 +78,7 @@ class SMPrivateSession: NSManagedObject, MCSessionDelegate, SMMessageHandlerDele
     func sendImageToPeer(image : UIImage){
         ~{
             var newUrl : NSURL
-            let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+            let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
             let date = NSDate()
             let fileName = "\(SMUser.shared.guid)+\(date.timeIntervalSince1970)"
             let fullFileName  = documentsPath.stringByAppendingPathComponent(fileName)
@@ -148,14 +147,14 @@ class SMPrivateSession: NSManagedObject, MCSessionDelegate, SMMessageHandlerDele
             //user accepted invitation
             isActive = true
             connectedPeer = SMManager.shared.privatePeerDict[peerID.displayName]!
-            delegate?.userHasConnected()
+            delegate?.peerHasConnected()
             SMPersistenceManager.saveContext()
             break
         case MCSessionState.NotConnected:
             println("\(peerID) is not connected to private session.")
             //user chose not to connect or did not respond to invitation in time
             isActive = false;
-            delegate?.userHasDisconnected()
+            delegate?.peerHasDisconnected()
             SMPersistenceManager.saveContext()
         default:
             break
@@ -187,5 +186,10 @@ class SMPrivateSession: NSManagedObject, MCSessionDelegate, SMMessageHandlerDele
             self.delegate?.receivedNewPost(post)
             SMPersistenceManager.saveContext()
         }
+    }
+    
+    func endSession(){
+        session?.disconnect()
+        isActive = false
     }
 }

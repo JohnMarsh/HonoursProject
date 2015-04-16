@@ -34,7 +34,7 @@ class PeerViewController: UIViewController, UITableViewDelegate, UITableViewData
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if(segue.identifier == "privateSessionSegue"){
-            var controller = segue.destinationViewController as PrivateMessagingViewController
+            var controller = segue.destinationViewController as! PrivateMessagingViewController
             let indexPath : NSIndexPath = self.tableView.indexPathForSelectedRow()!
             var peer : SMPeer = SMManager.shared.privatePeerList[indexPath.row]
             controller.privateSession = SMManager.shared.privateSessions[peer]!
@@ -70,9 +70,9 @@ class PeerViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell : UITableViewCell = tableView.dequeueReusableCellWithIdentifier("SMPeerCell", forIndexPath: indexPath) as UITableViewCell
+        var cell : UITableViewCell = tableView.dequeueReusableCellWithIdentifier("SMPeerCell", forIndexPath: indexPath) as! UITableViewCell
         var peer : SMPeer = SMManager.shared.privatePeerList[indexPath.row]
-        cell.textLabel?.text = peer.guid
+        cell.textLabel!.text = peer.guid as String
         return cell
     }
     
@@ -89,6 +89,23 @@ class PeerViewController: UIViewController, UITableViewDelegate, UITableViewData
         ^{
             self.tableView.reloadData()
         }
+    }
+    
+    func didReceivePrivateInvitationFromPeer(user : SMPeer!, invitationHandler: ((Bool) -> Void)!){
+        let alertController = UIAlertController(title: "Invitation Received", message: "\(user.guid) woudl like to connect.", preferredStyle: .Alert)
+        
+        let inviteAction = UIAlertAction(title: "Accept", style: .Default) { (_) in
+            invitationHandler(true)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Decline", style: .Default) { (_) in
+            invitationHandler(false)
+        }
+        
+        alertController.addAction(inviteAction)
+        alertController.addAction(cancelAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+        
     }
 
 }

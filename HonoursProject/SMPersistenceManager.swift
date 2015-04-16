@@ -19,20 +19,20 @@ class SMPersistenceManager: NSObject {
         }
         
         let appDelegate =
-        UIApplication.sharedApplication().delegate as AppDelegate
+        UIApplication.sharedApplication().delegate as! AppDelegate
         
         let managedContext = appDelegate.managedObjectContext!
         
         let entity =  NSEntityDescription.insertNewObjectForEntityForName("SMUser",
         inManagedObjectContext:
-        managedContext) as SMUser
+        managedContext) as! SMUser
         
         return entity
     }
     
     class func getExistingUser() -> SMUser?{
         let appDelegate =
-        UIApplication.sharedApplication().delegate as AppDelegate
+        UIApplication.sharedApplication().delegate as! AppDelegate
         
         let managedContext = appDelegate.managedObjectContext!
 
@@ -61,7 +61,7 @@ class SMPersistenceManager: NSObject {
         }
         
         let appDelegate =
-        UIApplication.sharedApplication().delegate as AppDelegate
+        UIApplication.sharedApplication().delegate as! AppDelegate
         
         let managedContext = appDelegate.managedObjectContext!
         
@@ -70,7 +70,7 @@ class SMPersistenceManager: NSObject {
             managedContext)
         
         let peer = NSManagedObject(entity: entity!,
-            insertIntoManagedObjectContext:managedContext) as SMPeer
+            insertIntoManagedObjectContext:managedContext) as! SMPeer
         
         peer.guid = peerID.displayName
         peer.peerID = peerID
@@ -79,7 +79,7 @@ class SMPersistenceManager: NSObject {
     
     class func getExistingPeer(peerID : MCPeerID) -> SMPeer?{
         let appDelegate =
-        UIApplication.sharedApplication().delegate as AppDelegate
+        UIApplication.sharedApplication().delegate as! AppDelegate
         
         let managedContext = appDelegate.managedObjectContext!
         
@@ -109,7 +109,7 @@ class SMPersistenceManager: NSObject {
         }
         
         let appDelegate =
-        UIApplication.sharedApplication().delegate as AppDelegate
+        UIApplication.sharedApplication().delegate as! AppDelegate
         
         let managedContext = appDelegate.managedObjectContext!
 
@@ -120,14 +120,14 @@ class SMPersistenceManager: NSObject {
         
         
         let session = NSManagedObject(entity: entity!,
-            insertIntoManagedObjectContext:managedContext) as SMPrivateSession
+            insertIntoManagedObjectContext:managedContext) as! SMPrivateSession
 
         return session
     }
     
     class func getExistingPrivateSessionWithPeer(peer : SMPeer) -> SMPrivateSession?{
         let appDelegate =
-        UIApplication.sharedApplication().delegate as AppDelegate
+        UIApplication.sharedApplication().delegate as! AppDelegate
         
         let managedContext = appDelegate.managedObjectContext!
         
@@ -152,26 +152,26 @@ class SMPersistenceManager: NSObject {
     
     class func createNewPost() -> SMPost{
         let appDelegate =
-        UIApplication.sharedApplication().delegate as AppDelegate
+        UIApplication.sharedApplication().delegate as! AppDelegate
         
         let managedContext = appDelegate.managedObjectContext!
         
         let entity =  NSEntityDescription.insertNewObjectForEntityForName("SMPost",
             inManagedObjectContext:
-            managedContext) as SMPost
+            managedContext) as! SMPost
         
         return entity
     }
     
     class func createNewProfile() -> SMUserProfile{
         let appDelegate =
-        UIApplication.sharedApplication().delegate as AppDelegate
+        UIApplication.sharedApplication().delegate as! AppDelegate
         
         let managedContext = appDelegate.managedObjectContext!
         
         let entity =  NSEntityDescription.insertNewObjectForEntityForName("SMUserProfile",
             inManagedObjectContext:
-            managedContext) as SMUserProfile
+            managedContext) as! SMUserProfile
         
         return entity
 
@@ -179,7 +179,7 @@ class SMPersistenceManager: NSObject {
     
     class func saveContext(){
         let appDelegate =
-        UIApplication.sharedApplication().delegate as AppDelegate
+        UIApplication.sharedApplication().delegate as! AppDelegate
         
         let managedContext = appDelegate.managedObjectContext!
     

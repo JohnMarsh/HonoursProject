@@ -16,7 +16,6 @@ class SMUser: NSManagedObject {
    @NSManaged var peerId : MCPeerID?
    @NSManaged var peer : SMPeer
    @NSManaged var guid : String
-   @NSManaged var profile : SMUserProfile
     
     class var shared : SMUser {
         
@@ -32,8 +31,7 @@ class SMUser: NSManagedObject {
         guid = UIDevice.currentDevice().identifierForVendor.UUIDString
         peerId = MCPeerID(displayName: guid)
         peer = SMPersistenceManager.createNewPeer(peerId!)
-        profile = SMPersistenceManager.createNewProfile()
-        peer.profile = profile
+        peer.profile = SMPersistenceManager.createNewProfile()
     }
     
     override func awakeFromFetch() {
@@ -44,10 +42,11 @@ class SMUser: NSManagedObject {
     
     func buildProfileMessage() -> SMMessage{
         var msg = SMMessage()
+        
         msg.messageType = SMMessageType.Profile
         msg.sender = peerId!.displayName
-        msg.addValue(profile.username ?? UIDevice.currentDevice().name, forKey: "username")
-        msg.addValue(profile.userDescription ?? "", forKey: "userDescription")
+        msg.addValue(peer.profile!.username ?? UIDevice.currentDevice().name, forKey: "username")
+        msg.addValue(peer.profile!.userDescription ?? "", forKey: "userDescription")
         return msg
     }
     
