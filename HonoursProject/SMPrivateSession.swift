@@ -153,7 +153,6 @@ class SMPrivateSession: NSManagedObject, MCSessionDelegate, SMMessageHandlerDele
         case MCSessionState.NotConnected:
             println("\(peerID) is not connected to private session.")
             //user chose not to connect or did not respond to invitation in time
-            isActive = false;
             delegate?.peerHasDisconnected()
             SMPersistenceManager.saveContext()
         default:

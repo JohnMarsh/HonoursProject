@@ -168,17 +168,31 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
             self.startPublicBrowsing()
             break
         case privateAdvertiser:
-            peerDeleagte?.didReceivePrivateInvitationFromPeer(privatePeerDict[peerID.displayName], invitationHandler: { (didAccept : Bool) -> Void in
-                if(didAccept){
-                    let privateSession : SMPrivateSession = SMPersistenceManager.createNewPrivateSessionWithPeer(self.privatePeerDict[peerID.displayName]!)
-                    privateSession.isActive = true
-                    privateSession.connectedPeer = self.privatePeerDict[peerID.displayName]
-                    self.privateSessions[self.privatePeerDict[peerID.displayName]!] = privateSession
-                    invitationHandler(true, privateSession.session)
-                }else{
-                    invitationHandler(false, nil)
-                }
-            })
+            if let somePeer = privatePeerDict[peerID.displayName]{
+                //we already have this peer
+            } else{
+                let smPeer : SMPeer = SMPersistenceManager.createNewPeer(peerID)
+                privatePeerDict[peerID.displayName] = smPeer
+                privatePeerList = [SMPeer](publicPeerDict.values)
+                peerDeleagte?.foundNewPeer(smPeer)
+            }
+            let privateSession : SMPrivateSession = SMPersistenceManager.createNewPrivateSessionWithPeer(self.privatePeerDict[peerID.displayName]!)
+            if(privateSession.isActive){
+                privateSession.connectedPeer = self.privatePeerDict[peerID.displayName]
+                self.privateSessions[self.privatePeerDict[peerID.displayName]!] = privateSession
+                invitationHandler(true, privateSession.session)
+            }else{
+                peerDeleagte?.didReceivePrivateInvitationFromPeer(privatePeerDict[peerID.displayName], invitationHandler: { (didAccept : Bool) -> Void in
+                    if(didAccept){
+                        privateSession.isActive = true
+                        privateSession.connectedPeer = self.privatePeerDict[peerID.displayName]
+                        self.privateSessions[self.privatePeerDict[peerID.displayName]!] = privateSession
+                        invitationHandler(true, privateSession.session)
+                    }else{
+                        invitationHandler(false, nil)
+                    }
+                })
+            }
             break
         default:
             break
@@ -222,6 +236,10 @@ class SMManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvert
                 privatePeerDict[peerID.displayName] = smPeer
                 privatePeerList = [SMPeer](privatePeerDict.values)
                 peerDeleagte?.foundNewPeer(smPeer)
+                let privateSession : SMPrivateSession = SMPersistenceManager.createNewPrivateSessionWithPeer(smPeer)
+                if(privateSession.isActive){
+                   invitePeerToPrivateSession(smPeer)
+                }
             }
             break
         default:
